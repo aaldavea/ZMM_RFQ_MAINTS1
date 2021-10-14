@@ -12,7 +12,7 @@ sap.ui.controller("zgestion.petofer.ext.controller.ListReportExtension", {
 			"zgestion.petofer::sap.suite.ui.generic.template.ListReport.view.ListReport::C_RequestForQuotationEnhWD--listReport").attachBeforeRebindTable(
 			function (oEvent) {
 				var user, mBindingParams = oEvent.getParameter("bindingParams");
-				user = sap.ushell.Container.getUser().getFullName();
+				user = sap.ushell.Container.getUser().getFullName(); 
 				mBindingParams.filters.push(new sap.ui.model.Filter("to_ContactCard/FullName", "EQ", user));
 			});
 	},
