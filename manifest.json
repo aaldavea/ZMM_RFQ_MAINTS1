@@ -17,7 +17,7 @@
         "resources": "resources.json",
         "dataSources": {
             "mainService": {
-                "uri": "/sap/opu/odata/sap/MM_PUR_RFQ_MAINTAIN_SRV/",
+                "uri": "/sap/opu/odata/sap/ZMM_PUR_RFQ_MAINTAIN_DDZ_SRV/",
                 "type": "OData",
                 "settings": {
                     "annotations": [
@@ -28,7 +28,7 @@
                 }
             },
             "MM_PUR_RFQ_MAINTAIN_ANNO_MDL": {
-                "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='MM_PUR_RFQ_MAINTAIN_ANNO_MDL',Version='0001')/$value/",
+                "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZMM_PUR_RFQ_MAINTAIN_DD_ANNO_MDL',Version='0001')/$value/",
                 "type": "ODataAnnotation",
                 "settings": {
                     "localUri": "localService/mainService/MM_PUR_RFQ_MAINTAIN_ANNO_MDL.xml"
