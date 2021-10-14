@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2009-2020 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"><edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/></edmx:Reference>
+	<edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"><edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/></edmx:Reference>
+	<edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"><edmx:Include Alias="Communication" Namespace="com.sap.vocabularies.Communication.v1"/></edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="SWF_FLEX_TEMPLATE_SRV" sap:schema-version="1" xml:lang="en" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="C_WorkflowTemplateType" sap:content-version="1" sap:label="Workflow Template">
+				<Key><PropertyRef Name="WrkflwTmplUUID"/><PropertyRef Name="IsActiveEntity"/></Key><Property Name="Activation_ac" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Dyn. Action Control" sap:sortable="false" sap:updatable="false"/><Property Name="Delete_logical_ac" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Dyn. Action Control" sap:sortable="false" sap:updatable="false"/><Property Name="Edit_ac" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Dyn. Action Control" sap:sortable="false" sap:updatable="false"/><Property Name="Preparation_ac" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Dyn. Action Control" sap:sortable="false" sap:updatable="false"/><Property Name="Validation_ac" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Dyn. Action Control" sap:sortable="false" sap:updatable="false"/><Property Name="WrkflwScen_fc" Type="Edm.Byte" sap:creatable="false" sap:filterable="false" sap:label="Dyn. Field Control" sap:sortable="false" sap:updatable="false"/><Property Name="WrkflwTmplStage_fc" Type="Edm.Byte" sap:creatable="false" sap:filterable="false" sap:label="Dyn. Field Control" sap:sortable="false" sap:updatable="false"/><Property Name="WrkflwTmplType_fc" Type="Edm.Byte" sap:creatable="false" sap:filterable="false" sap:label="Dyn. Field Control" sap:sortable="false" sap:updatable="false"/><Property Name="Delete_mc" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Dyn. Method Control" sap:sortable="false" sap:updatable="false"/><Property Name="Update_mc" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Dyn. Method Control" sap:sortable="false" sap:updatable="false"/><Property Name="WrkflwTmplUUID" Nullable="false" Type="Edm.Guid" sap:label="Key" sap:quickinfo="UUID serving as key (parent key, root key)"/><Property MaxLength="70" Name="WrkflwTmplId" Type="Edm.String" sap:creatable="false" sap:label="Template" sap:updatable="false" sap:value-list="standard"/><Property MaxLength="80" Name="WrkflwTmplName" Type="Edm.String" sap:label="Template Name"/><Property MaxLength="10" Name="WrkflwScen" Type="Edm.String" sap:display-format="UpperCase" sap:field-control="WrkflwScen_fc" sap:label="Scenario" sap:text="to_Scenario/WrkflwScenName" sap:value-list="standard"/><Property MaxLength="4" Name="WrkflwScenVers" Type="Edm.String" sap:creatable="false" sap:display-format="UpperCase" sap:label="Scenario Version" sap:updatable="false"/><Property MaxLength="24" Name="ApplicationComponent" Type="Edm.String" sap:creatable="false" sap:display-format="UpperCase" sap:label="Application Component" sap:updatable="false"/><Property MaxLength="10" Name="WrkflwTmplType" Type="Edm.String" sap:display-format="UpperCase" sap:field-control="WrkflwTmplType_fc" sap:label="Template Type" sap:text="to_Type/WrkflwTmplType_Text" sap:value-list="fixed-values"/><Property MaxLength="10" Name="WrkflwTmplStage" Type="Edm.String" sap:display-format="UpperCase" sap:field-control="WrkflwTmplStage_fc" sap:label="Template Stage" sap:text="to_Stage/WrkflwStage_Text" sap:value-list="standard"/><Property MaxLength="2" Name="WrkflwTmplCrtedLang" Type="Edm.String" sap:creatable="false" sap:label="Creation Language" sap:text="to_Language/Language_Text" sap:updatable="false" sap:value-list="standard"/><Property Name="WrkflwTmplCrtedUTCDteTme" Precision="7" Type="Edm.DateTimeOffset" sap:creatable="false" sap:label="Created On" sap:updatable="false"/><Property MaxLength="12" Name="WrkflwTmplCrtedUsr" Type="Edm.String" sap:creatable="false" sap:display-format="UpperCase" sap:label="Created By" sap:text="to_CreatedBy/UserDescription" sap:updatable="false" sap:value-list="standard"/><Property Name="WrkflwTmplLastChgdUTCDteTme" Precision="7" Type="Edm.DateTimeOffset" sap:creatable="false" sap:label="Changed On" sap:updatable="false"/><Property MaxLength="12" Name="WrkflwTmplLastChgdUsr" Type="Edm.String" sap:creatable="false" sap:display-format="UpperCase" sap:label="Changed By" sap:text="to_ChangedBy/UserDescription" sap:updatable="false" sap:value-list="standard"/><Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key"/><Property Name="DraftEntityCreationDateTime" Precision="7" Type="Edm.DateTimeOffset" sap:label="Draft Created On"/><Property Name="DraftEntityLastChangeDateTime" Precision="7" Type="Edm.DateTimeOffset" sap:label="Draft Last Changed On"/><Property Name="HasActiveEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has active" sap:sortable="false"/><Property Name="HasDraftEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has Draft" sap:sortable="false"/><Property Name="IsActiveEntity" Nullable="false" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is active" sap:sortable="false"/><NavigationProperty FromRole="FromRole_assoc_27D68693938C8DF4E8E0D7B5BE7250D8" Name="DraftAdministrativeData" Relationship="SWF_FLEX_TEMPLATE_SRV.assoc_27D68693938C8DF4E8E0D7B5BE7250D8" ToRole="ToRole_assoc_27D68693938C8DF4E8E0D7B5BE7250D8"/><NavigationProperty FromRole="FromRole_assoc_CCEEFEA5B484BE61E516DB326611987C" Name="SiblingEntity" Relationship="SWF_FLEX_TEMPLATE_SRV.assoc_CCEEFEA5B484BE61E516DB326611987C" ToRole="ToRole_assoc_CCEEFEA5B484BE61E516DB326611987C"/><NavigationProperty FromRole="FromRole_assoc_863B7D3C2B30F794CE9B4BD0EC70CA80" Name="to_ChangedBy" Relationship="SWF_FLEX_TEMPLATE_SRV.assoc_863B7D3C2B30F794CE9B4BD0EC70CA80" ToRole="ToRole_assoc_863B7D3C2B30F794CE9B4BD0EC70CA80"/><NavigationProperty FromRole="FromRole_assoc_71E217313BB94B5884D0A7984727FE1A" Name="to_CreatedBy" Relationship="SWF_FLEX_TEMPLATE_SRV.assoc_71E217313BB94B5884D0A7984727FE1A" ToRole="ToRole_assoc_71E217313BB94B5884D0A7984727FE1A"/><NavigationProperty FromRole="FromRole_assoc_AB4D09844744A73C4D13EC261896C9F5" Name="to_Language" Relationship="SWF_FLEX_TEMPLATE_SRV.assoc_AB4D09844744A73C4D13EC261896C9F5" ToRole="ToRole_assoc_AB4D09844744A73C4D13EC261896C9F5"/><NavigationProperty FromRole="FromRole_assoc_F4080A7140ADFBBCA21980A4FFBD240C" Name="to_Scenario" Relationship="SWF_FLEX_TEMPLATE_SRV.assoc_F4080A7140ADFBBCA21980A4FFBD240C" ToRole="ToRole_assoc_F4080A7140ADFBBCA21980A4FFBD240C"/><NavigationProperty FromRole="FromRole_assoc_678E0E5E114E0D8CBCFA5A5AAC68EA1B" Name="to_Stage" Relationship="SWF_FLEX_TEMPLATE_SRV.assoc_678E0E5E114E0D8CBCFA5A5AAC68EA1B" ToRole="ToRole_assoc_678E0E5E114E0D8CBCFA5A5AAC68EA1B"/><NavigationProperty FromRole="FromRole_assoc_5650E5FFEE85BFA7149AFA2FD78DB85D" Name="to_Template_VH" Relationship="SWF_FLEX_TEMPLATE_SRV.assoc_5650E5FFEE85BFA7149AFA2FD78DB85D" ToRole="ToRole_assoc_5650E5FFEE85BFA7149AFA2FD78DB85D"/><NavigationProperty FromRole="FromRole_assoc_2AD9471D2C7ECEB648B8904991FAF0BC" Name="to_Type" Relationship="SWF_FLEX_TEMPLATE_SRV.assoc_2AD9471D2C7ECEB648B8904991FAF0BC" ToRole="ToRole_assoc_2AD9471D2C7ECEB648B8904991FAF0BC"/></EntityType>
+			<EntityType Name="I_DraftAdministrativeDataType" sap:content-version="1" sap:label="Draft Administrative Data">
+				<Key><PropertyRef Name="DraftUUID"/></Key><Property Name="DraftUUID" Nullable="false" Type="Edm.Guid" sap:label="Draft (Technical ID)"/><Property MaxLength="30" Name="DraftEntityType" Type="Edm.String" sap:display-format="UpperCase" sap:label="Draft Entity ID"/><Property Name="CreationDateTime" Precision="7" Type="Edm.DateTimeOffset" sap:label="Draft Created On"/><Property MaxLength="12" Name="CreatedByUser" Type="Edm.String" sap:display-format="UpperCase" sap:label="Draft Created By" sap:text="CreatedByUserDescription"/><Property Name="LastChangeDateTime" Precision="7" Type="Edm.DateTimeOffset" sap:label="Draft Last Changed On"/><Property MaxLength="12" Name="LastChangedByUser" Type="Edm.String" sap:display-format="UpperCase" sap:label="Draft Last Changed By" sap:text="LastChangedByUserDescription"/><Property MaxLength="1" Name="DraftAccessType" Type="Edm.String" sap:display-format="UpperCase" sap:label="Draft Access Type"/><Property Name="ProcessingStartDateTime" Precision="7" Type="Edm.DateTimeOffset" sap:label="Draft In Process Since"/><Property MaxLength="12" Name="InProcessByUser" Type="Edm.String" sap:display-format="UpperCase" sap:label="Draft In Process By" sap:text="InProcessByUserDescription"/><Property Name="DraftIsKeptByUser" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Draft Is Kept By User"/><Property Name="EnqueueStartDateTime" Precision="7" Type="Edm.DateTimeOffset" sap:label="Draft Locked Since"/><Property Name="DraftIsCreatedByMe" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Draft Created By Me"/><Property Name="DraftIsLastChangedByMe" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Draft Last Changed By Me"/><Property Name="DraftIsProcessedByMe" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Draft In Process By Me"/><Property MaxLength="80" Name="CreatedByUserDescription" Type="Edm.String" sap:label="Draft Created By (Description)"/><Property MaxLength="80" Name="LastChangedByUserDescription" Type="Edm.String" sap:label="Draft Last Changed By (Description)"/><Property MaxLength="80" Name="InProcessByUserDescription" Type="Edm.String" sap:label="Draft In Process By (Description)"/></EntityType>
+			<EntityType Name="I_LanguageType" sap:content-version="1" sap:label="Language">
+				<Key><PropertyRef Name="Language"/></Key><Property MaxLength="2" Name="Language" Nullable="false" Type="Edm.String" sap:label="Language Key" sap:text="Language_Text"/><Property MaxLength="16" Name="Language_Text" Type="Edm.String" sap:creatable="false" sap:label="Name" sap:quickinfo="Name of Language" sap:updatable="false"/><Property MaxLength="2" Name="LanguageISOCode" Type="Edm.String" sap:display-format="UpperCase" sap:label="Lang. (ISO 639)" sap:quickinfo="2-Character SAP Language Code"/></EntityType>
+			<EntityType Name="I_WorkflowScenario_VHType" sap:content-version="1" sap:label="Flexible Workflow Scenario Value Help">
+				<Key><PropertyRef Name="WrkflwScen"/></Key><Property MaxLength="10" Name="WrkflwScen" Nullable="false" Type="Edm.String" sap:creatable="false" sap:display-format="UpperCase" sap:label="Scenario" sap:text="WrkflwScenName" sap:updatable="false"/><Property MaxLength="40" Name="WrkflwScenName" Type="Edm.String" sap:label="Scenario Name"/><Property MaxLength="60" Name="WrkflwScenTypeText" Type="Edm.String" sap:label="Scenario Type"/><Property MaxLength="24" Name="ApplicationComponent" Type="Edm.String" sap:creatable="false" sap:display-format="UpperCase" sap:label="Application Component" sap:updatable="false"/></EntityType>
+			<EntityType Name="I_WorkflowStage_VHType" sap:content-version="1" sap:label="Workflow Scenario Stage">
+				<Key><PropertyRef Name="WrkflwScen"/><PropertyRef Name="WrkflwStage"/></Key><Property Name="WrkflwStage_fc" Type="Edm.Byte" sap:creatable="false" sap:filterable="false" sap:label="Dyn. Field Control" sap:sortable="false" sap:updatable="false"/><Property MaxLength="10" Name="WrkflwScen" Nullable="false" Type="Edm.String" sap:creatable="false" sap:display-format="UpperCase" sap:label="Scenario" sap:updatable="false"/><Property MaxLength="10" Name="WrkflwStage" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:field-control="WrkflwStage_fc" sap:label="Workflow Stage" sap:text="WrkflwStage_Text"/><Property MaxLength="80" Name="WrkflwStage_Text" Type="Edm.String" sap:creatable="false" sap:label="Stage Name" sap:updatable="false"/></EntityType>
+			<EntityType Name="I_WorkflowTemplateTypeType" sap:content-version="1" sap:label="Workflow Template Type">
+				<Key><PropertyRef Name="WrkflwTmplType"/></Key><Property MaxLength="10" Name="WrkflwTmplType" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Template Type" sap:text="WrkflwTmplType_Text"/><Property MaxLength="60" Name="WrkflwTmplType_Text" Type="Edm.String" sap:creatable="false" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values" sap:updatable="false"/></EntityType>
+			<EntityType Name="I_WorkflowTemplate_VHType" sap:content-version="1" sap:label="Workflow Template Value Help">
+				<Key><PropertyRef Name="WrkflwTmplUUID"/></Key><Property Name="WrkflwScen_fc" Type="Edm.Byte" sap:creatable="false" sap:filterable="false" sap:label="Dyn. Field Control" sap:sortable="false" sap:updatable="false"/><Property Name="WrkflwTmplUUID" Nullable="false" Type="Edm.Guid" sap:label="Key" sap:quickinfo="UUID serving as key (parent key, root key)"/><Property MaxLength="70" Name="WrkflwTmplId" Type="Edm.String" sap:creatable="false" sap:label="Template" sap:updatable="false"/><Property MaxLength="80" Name="WrkflwTmplName" Type="Edm.String" sap:label="Template Name"/><Property MaxLength="10" Name="WrkflwScen" Type="Edm.String" sap:display-format="UpperCase" sap:field-control="WrkflwScen_fc" sap:label="Scenario"/><Property MaxLength="4" Name="WrkflwScenVers" Type="Edm.String" sap:creatable="false" sap:display-format="UpperCase" sap:label="Scenario Version" sap:updatable="false"/><Property MaxLength="24" Name="ApplicationComponent" Type="Edm.String" sap:creatable="false" sap:display-format="UpperCase" sap:label="Application Component" sap:updatable="false"/></EntityType>
+			<EntityType Name="I_WorkflowUserType" sap:content-version="1" sap:label="Workflow User">
+				<Key><PropertyRef Name="UserID"/></Key><Property MaxLength="12" Name="UserID" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="User ID" sap:text="UserDescription"/><Property MaxLength="80" Name="UserDescription" Type="Edm.String" sap:label="Description" sap:quickinfo="User Description"/></EntityType>
+			<ComplexType Name="ValidationFunctionResult"><Property Name="IsValid" Type="Edm.Boolean" sap:label="Is valid"/></ComplexType>
+			<Association Name="assoc_CCEEFEA5B484BE61E516DB326611987C" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_CCEEFEA5B484BE61E516DB326611987C" Type="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType"/><End Multiplicity="0..1" Role="ToRole_assoc_CCEEFEA5B484BE61E516DB326611987C" Type="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType"/></Association>
+			<Association Name="assoc_863B7D3C2B30F794CE9B4BD0EC70CA80" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_863B7D3C2B30F794CE9B4BD0EC70CA80" Type="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType"/><End Multiplicity="0..1" Role="ToRole_assoc_863B7D3C2B30F794CE9B4BD0EC70CA80" Type="SWF_FLEX_TEMPLATE_SRV.I_WorkflowUserType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_863B7D3C2B30F794CE9B4BD0EC70CA80"><PropertyRef Name="UserID"/></Principal>
+					<Dependent Role="FromRole_assoc_863B7D3C2B30F794CE9B4BD0EC70CA80"><PropertyRef Name="WrkflwTmplLastChgdUsr"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_71E217313BB94B5884D0A7984727FE1A" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_71E217313BB94B5884D0A7984727FE1A" Type="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType"/><End Multiplicity="0..1" Role="ToRole_assoc_71E217313BB94B5884D0A7984727FE1A" Type="SWF_FLEX_TEMPLATE_SRV.I_WorkflowUserType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_71E217313BB94B5884D0A7984727FE1A"><PropertyRef Name="UserID"/></Principal>
+					<Dependent Role="FromRole_assoc_71E217313BB94B5884D0A7984727FE1A"><PropertyRef Name="WrkflwTmplCrtedUsr"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_AB4D09844744A73C4D13EC261896C9F5" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_AB4D09844744A73C4D13EC261896C9F5" Type="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType"/><End Multiplicity="0..1" Role="ToRole_assoc_AB4D09844744A73C4D13EC261896C9F5" Type="SWF_FLEX_TEMPLATE_SRV.I_LanguageType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_AB4D09844744A73C4D13EC261896C9F5"><PropertyRef Name="Language"/></Principal>
+					<Dependent Role="FromRole_assoc_AB4D09844744A73C4D13EC261896C9F5"><PropertyRef Name="WrkflwTmplCrtedLang"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_F4080A7140ADFBBCA21980A4FFBD240C" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_F4080A7140ADFBBCA21980A4FFBD240C" Type="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType"/><End Multiplicity="0..1" Role="ToRole_assoc_F4080A7140ADFBBCA21980A4FFBD240C" Type="SWF_FLEX_TEMPLATE_SRV.I_WorkflowScenario_VHType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_F4080A7140ADFBBCA21980A4FFBD240C"><PropertyRef Name="WrkflwScen"/></Principal>
+					<Dependent Role="FromRole_assoc_F4080A7140ADFBBCA21980A4FFBD240C"><PropertyRef Name="WrkflwScen"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_678E0E5E114E0D8CBCFA5A5AAC68EA1B" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_678E0E5E114E0D8CBCFA5A5AAC68EA1B" Type="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType"/><End Multiplicity="0..1" Role="ToRole_assoc_678E0E5E114E0D8CBCFA5A5AAC68EA1B" Type="SWF_FLEX_TEMPLATE_SRV.I_WorkflowStage_VHType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_678E0E5E114E0D8CBCFA5A5AAC68EA1B"><PropertyRef Name="WrkflwStage"/><PropertyRef Name="WrkflwScen"/></Principal>
+					<Dependent Role="FromRole_assoc_678E0E5E114E0D8CBCFA5A5AAC68EA1B"><PropertyRef Name="WrkflwTmplStage"/><PropertyRef Name="WrkflwScen"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_5650E5FFEE85BFA7149AFA2FD78DB85D" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_5650E5FFEE85BFA7149AFA2FD78DB85D" Type="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType"/><End Multiplicity="0..1" Role="ToRole_assoc_5650E5FFEE85BFA7149AFA2FD78DB85D" Type="SWF_FLEX_TEMPLATE_SRV.I_WorkflowTemplate_VHType"/></Association>
+			<Association Name="assoc_2AD9471D2C7ECEB648B8904991FAF0BC" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_2AD9471D2C7ECEB648B8904991FAF0BC" Type="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType"/><End Multiplicity="0..1" Role="ToRole_assoc_2AD9471D2C7ECEB648B8904991FAF0BC" Type="SWF_FLEX_TEMPLATE_SRV.I_WorkflowTemplateTypeType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_2AD9471D2C7ECEB648B8904991FAF0BC"><PropertyRef Name="WrkflwTmplType"/></Principal>
+					<Dependent Role="FromRole_assoc_2AD9471D2C7ECEB648B8904991FAF0BC"><PropertyRef Name="WrkflwTmplType"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_27D68693938C8DF4E8E0D7B5BE7250D8" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_27D68693938C8DF4E8E0D7B5BE7250D8" Type="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType"/><End Multiplicity="0..1" Role="ToRole_assoc_27D68693938C8DF4E8E0D7B5BE7250D8" Type="SWF_FLEX_TEMPLATE_SRV.I_DraftAdministrativeDataType"/></Association>
+			<EntityContainer Name="SWF_FLEX_TEMPLATE_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx"><EntitySet EntityType="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType" Name="C_WorkflowTemplate" sap:content-version="1" sap:deletable-path="Delete_mc" sap:searchable="true" sap:updatable-path="Update_mc"/><EntitySet EntityType="SWF_FLEX_TEMPLATE_SRV.I_DraftAdministrativeDataType" Name="I_DraftAdministrativeData" sap:addressable="false" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="SWF_FLEX_TEMPLATE_SRV.I_LanguageType" Name="I_Language" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="SWF_FLEX_TEMPLATE_SRV.I_WorkflowScenario_VHType" Name="I_WorkflowScenario_VH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"/><EntitySet EntityType="SWF_FLEX_TEMPLATE_SRV.I_WorkflowStage_VHType" Name="I_WorkflowStage_VH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"/><EntitySet EntityType="SWF_FLEX_TEMPLATE_SRV.I_WorkflowTemplateTypeType" Name="I_WorkflowTemplateType" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:semantics="fixed-values" sap:updatable="false"/><EntitySet EntityType="SWF_FLEX_TEMPLATE_SRV.I_WorkflowTemplate_VHType" Name="I_WorkflowTemplate_VH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"/><EntitySet EntityType="SWF_FLEX_TEMPLATE_SRV.I_WorkflowUserType" Name="I_WorkflowUser" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"/>
+				<AssociationSet Association="SWF_FLEX_TEMPLATE_SRV.assoc_AB4D09844744A73C4D13EC261896C9F5" Name="assoc_AB4D09844744A73C4D13EC261896C9F5" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="C_WorkflowTemplate" Role="FromRole_assoc_AB4D09844744A73C4D13EC261896C9F5"/><End EntitySet="I_Language" Role="ToRole_assoc_AB4D09844744A73C4D13EC261896C9F5"/></AssociationSet>
+				<AssociationSet Association="SWF_FLEX_TEMPLATE_SRV.assoc_5650E5FFEE85BFA7149AFA2FD78DB85D" Name="assoc_5650E5FFEE85BFA7149AFA2FD78DB85D" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="C_WorkflowTemplate" Role="FromRole_assoc_5650E5FFEE85BFA7149AFA2FD78DB85D"/><End EntitySet="I_WorkflowTemplate_VH" Role="ToRole_assoc_5650E5FFEE85BFA7149AFA2FD78DB85D"/></AssociationSet>
+				<AssociationSet Association="SWF_FLEX_TEMPLATE_SRV.assoc_678E0E5E114E0D8CBCFA5A5AAC68EA1B" Name="assoc_678E0E5E114E0D8CBCFA5A5AAC68EA1B" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="C_WorkflowTemplate" Role="FromRole_assoc_678E0E5E114E0D8CBCFA5A5AAC68EA1B"/><End EntitySet="I_WorkflowStage_VH" Role="ToRole_assoc_678E0E5E114E0D8CBCFA5A5AAC68EA1B"/></AssociationSet>
+				<AssociationSet Association="SWF_FLEX_TEMPLATE_SRV.assoc_27D68693938C8DF4E8E0D7B5BE7250D8" Name="assoc_27D68693938C8DF4E8E0D7B5BE7250D8" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="C_WorkflowTemplate" Role="FromRole_assoc_27D68693938C8DF4E8E0D7B5BE7250D8"/><End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_27D68693938C8DF4E8E0D7B5BE7250D8"/></AssociationSet>
+				<AssociationSet Association="SWF_FLEX_TEMPLATE_SRV.assoc_71E217313BB94B5884D0A7984727FE1A" Name="assoc_71E217313BB94B5884D0A7984727FE1A" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="C_WorkflowTemplate" Role="FromRole_assoc_71E217313BB94B5884D0A7984727FE1A"/><End EntitySet="I_WorkflowUser" Role="ToRole_assoc_71E217313BB94B5884D0A7984727FE1A"/></AssociationSet>
+				<AssociationSet Association="SWF_FLEX_TEMPLATE_SRV.assoc_F4080A7140ADFBBCA21980A4FFBD240C" Name="assoc_F4080A7140ADFBBCA21980A4FFBD240C" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="C_WorkflowTemplate" Role="FromRole_assoc_F4080A7140ADFBBCA21980A4FFBD240C"/><End EntitySet="I_WorkflowScenario_VH" Role="ToRole_assoc_F4080A7140ADFBBCA21980A4FFBD240C"/></AssociationSet>
+				<AssociationSet Association="SWF_FLEX_TEMPLATE_SRV.assoc_CCEEFEA5B484BE61E516DB326611987C" Name="assoc_CCEEFEA5B484BE61E516DB326611987C" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="C_WorkflowTemplate" Role="FromRole_assoc_CCEEFEA5B484BE61E516DB326611987C"/><End EntitySet="C_WorkflowTemplate" Role="ToRole_assoc_CCEEFEA5B484BE61E516DB326611987C"/></AssociationSet>
+				<AssociationSet Association="SWF_FLEX_TEMPLATE_SRV.assoc_863B7D3C2B30F794CE9B4BD0EC70CA80" Name="assoc_863B7D3C2B30F794CE9B4BD0EC70CA80" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="C_WorkflowTemplate" Role="FromRole_assoc_863B7D3C2B30F794CE9B4BD0EC70CA80"/><End EntitySet="I_WorkflowUser" Role="ToRole_assoc_863B7D3C2B30F794CE9B4BD0EC70CA80"/></AssociationSet>
+				<AssociationSet Association="SWF_FLEX_TEMPLATE_SRV.assoc_2AD9471D2C7ECEB648B8904991FAF0BC" Name="assoc_2AD9471D2C7ECEB648B8904991FAF0BC" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="C_WorkflowTemplate" Role="FromRole_assoc_2AD9471D2C7ECEB648B8904991FAF0BC"/><End EntitySet="I_WorkflowTemplateType" Role="ToRole_assoc_2AD9471D2C7ECEB648B8904991FAF0BC"/></AssociationSet>
+				<FunctionImport EntitySet="C_WorkflowTemplate" Name="C_WorkflowTemplateActivation" ReturnType="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType" m:HttpMethod="POST" sap:action-for="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType" sap:applicable-path="Activation_ac"><Parameter Mode="In" Name="WrkflwTmplUUID" Type="Edm.Guid"/><Parameter Mode="In" Name="IsActiveEntity" Type="Edm.Boolean"/></FunctionImport>
+				<FunctionImport EntitySet="C_WorkflowTemplate" Name="C_WorkflowTemplateDelete_logical" ReturnType="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType" m:HttpMethod="POST" sap:action-for="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType" sap:applicable-path="Delete_logical_ac"><Parameter Mode="In" Name="WrkflwTmplUUID" Type="Edm.Guid"/><Parameter Mode="In" Name="IsActiveEntity" Type="Edm.Boolean"/></FunctionImport>
+				<FunctionImport EntitySet="C_WorkflowTemplate" Name="C_WorkflowTemplateEdit" ReturnType="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType" m:HttpMethod="POST" sap:action-for="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType" sap:applicable-path="Edit_ac"><Parameter Mode="In" Name="WrkflwTmplUUID" Type="Edm.Guid"/><Parameter Mode="In" Name="IsActiveEntity" Type="Edm.Boolean"/><Parameter Mode="In" Name="PreserveChanges" Nullable="true" Type="Edm.Boolean"/></FunctionImport>
+				<FunctionImport EntitySet="C_WorkflowTemplate" Name="C_WorkflowTemplatePreparation" ReturnType="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType" m:HttpMethod="POST" sap:action-for="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType" sap:applicable-path="Preparation_ac"><Parameter Mode="In" Name="WrkflwTmplUUID" Type="Edm.Guid"/><Parameter Mode="In" Name="IsActiveEntity" Type="Edm.Boolean"/><Parameter Mode="In" Name="SideEffectsQualifier" Nullable="true" Type="Edm.String"/></FunctionImport>
+				<FunctionImport Name="C_WorkflowTemplateValidation" ReturnType="SWF_FLEX_TEMPLATE_SRV.ValidationFunctionResult" m:HttpMethod="GET" sap:action-for="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType" sap:applicable-path="Validation_ac"><Parameter Mode="In" Name="WrkflwTmplUUID" Type="Edm.Guid"/><Parameter Mode="In" Name="IsActiveEntity" Type="Edm.Boolean"/><Parameter Mode="In" Name="SideEffectsQualifier" Nullable="true" Type="Edm.String"/></FunctionImport>
+			</EntityContainer>
+			<Annotations Target="SWF_FLEX_TEMPLATE_SRV.SWF_FLEX_TEMPLATE_SRV_Entities/C_WorkflowTemplate" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.DraftRoot">
+					<Record><PropertyValue Property="ActivationAction" String="SWF_FLEX_TEMPLATE_SRV.SWF_FLEX_TEMPLATE_SRV_Entities/C_WorkflowTemplateActivation"/><PropertyValue Property="EditAction" String="SWF_FLEX_TEMPLATE_SRV.SWF_FLEX_TEMPLATE_SRV_Entities/C_WorkflowTemplateEdit"/><PropertyValue Property="PreparationAction" String="SWF_FLEX_TEMPLATE_SRV.SWF_FLEX_TEMPLATE_SRV_Entities/C_WorkflowTemplatePreparation"/><PropertyValue Property="ValidationFunction" String="SWF_FLEX_TEMPLATE_SRV.SWF_FLEX_TEMPLATE_SRV_Entities/C_WorkflowTemplateValidation"/></Record>
+				</Annotation>
+				<Annotation Term="Capabilities.FilterRestrictions">
+					<Record>
+						<PropertyValue Property="NonFilterableProperties">
+							<Collection>
+								<PropertyPath>Activation_ac</PropertyPath>
+								<PropertyPath>Delete_logical_ac</PropertyPath>
+								<PropertyPath>Edit_ac</PropertyPath>
+								<PropertyPath>Preparation_ac</PropertyPath>
+								<PropertyPath>Validation_ac</PropertyPath>
+								<PropertyPath>WrkflwScen_fc</PropertyPath>
+								<PropertyPath>WrkflwTmplStage_fc</PropertyPath>
+								<PropertyPath>WrkflwTmplType_fc</PropertyPath>
+								<PropertyPath>Delete_mc</PropertyPath>
+								<PropertyPath>Update_mc</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Capabilities.SortRestrictions">
+					<Record>
+						<PropertyValue Property="NonSortableProperties">
+							<Collection>
+								<PropertyPath>Activation_ac</PropertyPath>
+								<PropertyPath>Delete_logical_ac</PropertyPath>
+								<PropertyPath>Edit_ac</PropertyPath>
+								<PropertyPath>Preparation_ac</PropertyPath>
+								<PropertyPath>Validation_ac</PropertyPath>
+								<PropertyPath>WrkflwScen_fc</PropertyPath>
+								<PropertyPath>WrkflwTmplStage_fc</PropertyPath>
+								<PropertyPath>WrkflwTmplType_fc</PropertyPath>
+								<PropertyPath>Delete_mc</PropertyPath>
+								<PropertyPath>Update_mc</PropertyPath>
+								<PropertyPath>HasActiveEntity</PropertyPath>
+								<PropertyPath>HasDraftEntity</PropertyPath>
+								<PropertyPath>IsActiveEntity</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType/WrkflwTmplId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Workflow Template Value Help"/><PropertyValue Property="CollectionPath" String="I_WorkflowTemplate_VH"/><PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="WrkflwTmplId"/><PropertyValue Property="ValueListProperty" String="WrkflwTmplId"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="WrkflwTmplUUID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="WrkflwTmplName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="WrkflwScen"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="WrkflwScenVers"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="ApplicationComponent"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType/WrkflwScen" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Flexible Workflow Scenario Value Help"/><PropertyValue Property="CollectionPath" String="I_WorkflowScenario_VH"/><PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="WrkflwScen"/><PropertyValue Property="ValueListProperty" String="WrkflwScen"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="WrkflwScenName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="WrkflwScenTypeText"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="ApplicationComponent"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType/WrkflwTmplType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Workflow Template Type"/><PropertyValue Property="CollectionPath" String="I_WorkflowTemplateType"/><PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="WrkflwTmplType"/><PropertyValue Property="ValueListProperty" String="WrkflwTmplType"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="WrkflwTmplType_Text"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType/WrkflwTmplStage" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Workflow Scenario Stage"/><PropertyValue Property="CollectionPath" String="I_WorkflowStage_VH"/><PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="WrkflwScen"/><PropertyValue Property="ValueListProperty" String="WrkflwScen"/></Record>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="WrkflwTmplStage"/><PropertyValue Property="ValueListProperty" String="WrkflwStage"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="WrkflwStage_Text"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType/WrkflwTmplCrtedLang" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Language"/><PropertyValue Property="CollectionPath" String="I_Language"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="WrkflwTmplCrtedLang"/><PropertyValue Property="ValueListProperty" String="Language"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Language_Text"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType/WrkflwTmplCrtedUsr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Workflow User"/><PropertyValue Property="CollectionPath" String="I_WorkflowUser"/><PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="WrkflwTmplCrtedUsr"/><PropertyValue Property="ValueListProperty" String="UserID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="UserDescription"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType/WrkflwTmplLastChgdUsr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Workflow User"/><PropertyValue Property="CollectionPath" String="I_WorkflowUser"/><PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="WrkflwTmplLastChgdUsr"/><PropertyValue Property="ValueListProperty" String="UserID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="UserDescription"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType/WrkflwTmplName" xmlns="http://docs.oasis-open.org/odata/ns/edm"><Annotation EnumMember="Common.FieldControlType/Mandatory" Term="Common.FieldControl"/></Annotations>
+			<Annotations Target="SWF_FLEX_TEMPLATE_SRV.I_WorkflowTemplate_VHType/WrkflwTmplName" xmlns="http://docs.oasis-open.org/odata/ns/edm"><Annotation EnumMember="Common.FieldControlType/Mandatory" Term="Common.FieldControl"/></Annotations>
+			<Annotations Target="SWF_FLEX_TEMPLATE_SRV.SWF_FLEX_TEMPLATE_SRV_Entities/I_WorkflowStage_VH" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Capabilities.FilterRestrictions">
+					<Record>
+						<PropertyValue Property="NonFilterableProperties">
+							<Collection>
+								<PropertyPath>WrkflwStage_fc</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Capabilities.SortRestrictions">
+					<Record>
+						<PropertyValue Property="NonSortableProperties">
+							<Collection>
+								<PropertyPath>WrkflwStage_fc</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="SWF_FLEX_TEMPLATE_SRV.SWF_FLEX_TEMPLATE_SRV_Entities/I_WorkflowTemplate_VH" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Capabilities.FilterRestrictions">
+					<Record>
+						<PropertyValue Property="NonFilterableProperties">
+							<Collection>
+								<PropertyPath>WrkflwScen_fc</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Capabilities.SortRestrictions">
+					<Record>
+						<PropertyValue Property="NonSortableProperties">
+							<Collection>
+								<PropertyPath>WrkflwScen_fc</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>WrkflwTmplName</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="SWF_FLEX_TEMPLATE_SRV.C_WorkflowTemplateType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Qualifier="ChangingScenario" Term="Common.SideEffects">
+					<Record>
+						<PropertyValue Property="SourceProperties">
+							<Collection>
+								<PropertyPath>WrkflwScen</PropertyPath>
+							</Collection>
+						</PropertyValue><PropertyValue Property="TargetEntities"/></Record>
+				</Annotation>
+				<Annotation Qualifier="ChangingType" Term="Common.SideEffects">
+					<Record>
+						<PropertyValue Property="SourceProperties">
+							<Collection>
+								<PropertyPath>WrkflwTmplType</PropertyPath>
+							</Collection>
+						</PropertyValue><PropertyValue Property="TargetEntities"/></Record>
+				</Annotation>
+			</Annotations><atom:link href="/sap/opu/odata/sap/SWF_FLEX_TEMPLATE_SRV/$metadata" rel="self" xmlns:atom="http://www.w3.org/2005/Atom"/><atom:link href="/sap/opu/odata/sap/SWF_FLEX_TEMPLATE_SRV/$metadata" rel="latest-version" xmlns:atom="http://www.w3.org/2005/Atom"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

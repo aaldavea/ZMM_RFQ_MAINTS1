@@ -1,0 +1,121 @@
+{
+  "welcomeFile": "index.html",
+  "routes": [
+    {
+      "path": "/sap/opu/odata",
+      "target": {
+        "type": "destination",
+        "name": "M19",
+        "entryPath": "/sap/opu/odata"
+      },
+      "description": "M19"
+    },
+    {
+      "path": "/sap/bc/ui5_ui5",
+      "target": {
+        "type": "destination",
+        "name": "M19",
+        "entryPath": "/sap/bc/ui5_ui5"
+      },
+      "description": "M19"
+    },
+    {
+      "path": "/resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/resources"
+      },
+      "description": "SAPUI5 Resources"
+    },
+    {
+      "path": "/test-resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/test-resources"
+      },
+      "description": "SAPUI5 Test Resources"
+    },
+    {
+      "path": "/resources/s4/cfnd/sit/reuse",
+      "target": {
+        "type": "destination",
+        "name": "M19",
+        "entryPath": "/sap/bc/ui5_ui5/sap/sit_ruses1",
+        "preferLocal": true
+      },
+      "description": "s4/cfnd/sit/reuse Reuse Library"
+    },
+    {
+      "path": "/resources/sap/se/mi/plm/lib/attachmentservice",
+      "target": {
+        "type": "destination",
+        "name": "M19",
+        "entryPath": "/sap/bc/ui5_ui5/sap/plm_ath_cres1",
+        "preferLocal": true
+      },
+      "description": "sap/se/mi/plm/lib/attachmentservice Reuse Library"
+    },
+    {
+      "path": "/resources/sap/s4h/cfnd/featuretoggle",
+      "target": {
+        "type": "destination",
+        "name": "M19",
+        "entryPath": "/sap/bc/ui5_ui5/sap/featuretoggles1",
+        "preferLocal": true
+      },
+      "description": "sap/s4h/cfnd/featuretoggle Reuse Library"
+    },
+    {
+      "path": "/resources/sap/s4/cfnd/lib/businessprocessflow",
+      "target": {
+        "type": "destination",
+        "name": "M19",
+        "entryPath": "/sap/bc/ui5_ui5/sap/ca_ui_bpfs1",
+        "preferLocal": true
+      },
+      "description": "sap/s4/cfnd/lib/businessprocessflow Reuse Library"
+    },
+    {
+      "path": "/resources/sap/nw/core/gbt/notes/lib/reuse",
+      "target": {
+        "type": "destination",
+        "name": "M19",
+        "entryPath": "/sap/bc/ui5_ui5/sap/nw_aps_nte_lib",
+        "preferLocal": true
+      },
+      "description": "sap/nw/core/gbt/notes/lib/reuse Reuse Library"
+    },
+    {
+      "path": "/resources/sap/io/bpm/sworkfloweditor/lib/reuse",
+      "target": {
+        "type": "destination",
+        "name": "M19",
+        "entryPath": "/sap/bc/ui5_ui5/sap/nw_aps_bpm_lib",
+        "preferLocal": true
+      },
+      "description": "sap/io/bpm/sworkfloweditor/lib/reuse Reuse Library"
+    },
+    {
+      "path": "/resources/ssuite/fnd/addr/reuse1",
+      "target": {
+        "type": "destination",
+        "name": "M19",
+        "entryPath": "/sap/bc/ui5_ui5/sap/ca_addr_reuses1",
+        "preferLocal": true
+      },
+      "description": "ssuite/fnd/addr/reuse1 Reuse Library"
+    },
+    {
+      "path": "/resources/sap/ssuite/fnd/om/outputcontrol",
+      "target": {
+        "type": "destination",
+        "name": "M19",
+        "entryPath": "/sap/bc/ui5_ui5/sap/fnd_om_out_cls1",
+        "preferLocal": true
+      },
+      "description": "sap/ssuite/fnd/om/outputcontrol Reuse Library"
+    }
+  ]
+}

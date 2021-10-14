@@ -1,0 +1,15 @@
+<!--
+
+    Copyright (C) 2009-2020 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<mvc:View id="LTVHview" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable">
+	<smartFilterBar:SmartFilterBar id="smartFilterBarLTVH" entitySet="C_MM_LegalTransactionVH" enableBasicSearch="true" persistencyKey=""
+		expandAdvancedArea="true"></smartFilterBar:SmartFilterBar>
+	<smartTable:SmartTable id="smartTableLTVH" entitySet="C_MM_LegalTransactionVH" smartFilterId="smartFilterBarLTVH"
+		tableType="ResponsiveTable" useVariantManagement="false" showVariantManagement="false" useTablePersonalisation="false" showRowCount="false"
+		enableAutoBinding="true" demandPopin="true" useExportToExcel="false">
+		<Table mode="SingleSelectLeft" growing="true" growingScrollToLoad="true" showNoData="true" fixedLayout="false"></Table>
+	</smartTable:SmartTable>
+</mvc:View>

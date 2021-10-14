@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2009-2020 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"><edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/></edmx:Reference>
+	<edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"><edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/></edmx:Reference>
+	<edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"><edmx:Include Alias="Communication" Namespace="com.sap.vocabularies.Communication.v1"/></edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="S_MMPURWORKFLOWVH_CDS" sap:schema-version="1" xml:lang="en" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="C_BackendPurgOrgForCntrlContrType" sap:content-version="1" sap:label="Backend Purchasing Orgs for Cntrl Pur Contr Hub Scenario">
+				<Key><PropertyRef Name="PurchasingOrganization"/><PropertyRef Name="LogicalSystem"/></Key><Property MaxLength="4" Name="PurchasingOrganization" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing Organization" sap:text="PurchasingOrganizationName"/><Property MaxLength="60" Name="LogicalSystem" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Back-End System ID"/><Property MaxLength="20" Name="PurchasingOrganizationName" Type="Edm.String" sap:label="Purch. Org. Name" sap:quickinfo="Purchasing Organization Name"/><Property MaxLength="4" Name="CompanyCode" Type="Edm.String" sap:display-format="UpperCase" sap:label="Company Code"/><Property MaxLength="4" Name="Plant" Type="Edm.String" sap:display-format="UpperCase" sap:label="Plant"/></EntityType>
+			<EntityType Name="C_CntrlPurContrCoCodeVHType" sap:content-version="1" sap:label="C-View for Company Code F4 Help in Central Purchase Contract">
+				<Key><PropertyRef Name="Material"/><PropertyRef Name="CompanyCode"/><PropertyRef Name="Plant"/></Key><Property MaxLength="40" Name="Material" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Material"/><Property MaxLength="4" Name="CompanyCode" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Company Code" sap:text="CompanyCodeName"/><Property MaxLength="4" Name="Plant" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Plant"/><Property MaxLength="10" Name="LogicalSystem" Type="Edm.String" sap:display-format="UpperCase" sap:label="Back-end System ID" sap:quickinfo="Back-end System"/><Property MaxLength="25" Name="CompanyCodeName" Type="Edm.String" sap:label="Company Name" sap:quickinfo="Name of Company Code or Company"/></EntityType>
+			<EntityType Name="C_CntrlPurContrPlantVHType" sap:content-version="1" sap:label="C-View for Plant F4 Help in Central Purchase Contract">
+				<Key><PropertyRef Name="Material"/><PropertyRef Name="CompanyCode"/><PropertyRef Name="Plant"/></Key><Property MaxLength="40" Name="Material" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Material" sap:text="Material"/><Property MaxLength="4" Name="CompanyCode" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Company Code"/><Property MaxLength="4" Name="Plant" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Plant"/><Property MaxLength="10" Name="LogicalSystem" Type="Edm.String" sap:display-format="UpperCase" sap:label="Back-end System ID" sap:quickinfo="Back-end System"/></EntityType>
+			<EntityType Name="C_CntrlPurContrTypeValueHelpType" sap:content-version="1" sap:label="View for Contract Type F4 Help in Central Purchase Contract">
+				<Key><PropertyRef Name="PurchasingDocumentType"/></Key><Property MaxLength="4" Name="PurchasingDocumentType" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing Doc. Type" sap:quickinfo="Purchasing Document Type" sap:text="PurchasingDocumentTypeName"/><Property MaxLength="20" Name="PurchasingDocumentTypeName" Type="Edm.String" sap:label="Doc. Type Descript." sap:quickinfo="Short Description of Purchasing Document Type"/></EntityType>
+			<EntityType Name="C_MM_CompanyCodeValueHelpType" sap:content-version="1" sap:label="Company Code Value Help">
+				<Key><PropertyRef Name="CompanyCode"/></Key><Property MaxLength="4" Name="CompanyCode" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Company Code" sap:text="CompanyCodeName"/><Property MaxLength="25" Name="CompanyCodeName" Type="Edm.String" sap:label="Company Name" sap:quickinfo="Name of Company Code or Company"/></EntityType>
+			<EntityType Name="C_MM_MaterialGroupValueHelpType" sap:content-version="1" sap:label="Material Group Value Help">
+				<Key><PropertyRef Name="MaterialGroup"/></Key><Property MaxLength="9" Name="MaterialGroup" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Product Group" sap:text="MaterialGroupName"/><Property MaxLength="20" Name="MaterialGroupName" Type="Edm.String" sap:label="Product Group Desc." sap:quickinfo="Product Group Description"/></EntityType>
+			<EntityType Name="C_MM_PlantValueHelpType" sap:content-version="1" sap:label="Plant Value Help">
+				<Key><PropertyRef Name="Plant"/><PropertyRef Name="PurchasingOrganization"/></Key><Property MaxLength="4" Name="Plant" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Plant" sap:text="PlantName"/><Property MaxLength="4" Name="PurchasingOrganization" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purch. Organization" sap:quickinfo="Purchasing Organization" sap:text="PurchasingOrganizationName" sap:value-list="standard"/><Property MaxLength="30" Name="PlantName" Type="Edm.String" sap:label="Plant Name"/><Property MaxLength="20" Name="PurchasingOrganizationName" Type="Edm.String" sap:label="Purch. Org. Name" sap:quickinfo="Purchasing Organization Name"/><Property MaxLength="40" Name="CityName" Type="Edm.String" sap:label="City"/><Property MaxLength="10" Name="PostalCode" Type="Edm.String" sap:display-format="UpperCase" sap:label="Postal Code" sap:quickinfo="City Postal Code"/><NavigationProperty FromRole="FromRole_assoc_8EC2ECEF64E090F7A99C883C5D229CB7" Name="to_PurchasingOrganization" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_8EC2ECEF64E090F7A99C883C5D229CB7" ToRole="ToRole_assoc_8EC2ECEF64E090F7A99C883C5D229CB7"/></EntityType>
+			<EntityType Name="C_ProcmtHubCoCodeSystemVHType" sap:content-version="1" sap:label="Backend Company Code System Value Help">
+				<Key><PropertyRef Name="ProcurementHubSourceSystem"/><PropertyRef Name="ProcmtHubCompanyCode"/><PropertyRef Name="ProcmtHubCompanyCodeUniqueID"/></Key><Property MaxLength="10" Name="ProcurementHubSourceSystem" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Back-end System ID" sap:quickinfo="Back-end System"/><Property MaxLength="4" Name="ProcmtHubCompanyCode" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Backend Company Code" sap:text="ProcmtHubCompanyCodeName"/><Property MaxLength="20" Name="ProcmtHubCompanyCodeUniqueID" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Company Code ID" sap:quickinfo="Company Code Unique ID" sap:text="ProcmtHubCompanyCodeName"/><Property MaxLength="25" Name="ProcmtHubCompanyCodeName" Type="Edm.String" sap:label="Company Name" sap:quickinfo="Name of Company Code or Company"/></EntityType>
+			<EntityType Name="C_ProcmtHubPlantSystemVHType" sap:content-version="1" sap:label="Backend Plant System Value Help">
+				<Key><PropertyRef Name="ProcurementHubSourceSystem"/><PropertyRef Name="ProcmtHubCompanyCode"/><PropertyRef Name="ProcmtHubPlant"/><PropertyRef Name="ProcmtHubPlantUniqueID"/></Key><Property MaxLength="10" Name="ProcurementHubSourceSystem" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Back-end System ID" sap:quickinfo="Back-end System"/><Property MaxLength="4" Name="ProcmtHubCompanyCode" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Backend Company Code" sap:text="ProcmtHubCompanyCodeName"/><Property MaxLength="4" Name="ProcmtHubPlant" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Backend Plant" sap:text="ProcmtHubPlantName"/><Property MaxLength="30" Name="ProcmtHubPlantUniqueID" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Plant Unique ID" sap:text="ProcmtHubPlantName"/><Property MaxLength="25" Name="ProcmtHubCompanyCodeName" Type="Edm.String" sap:label="Company Name" sap:quickinfo="Name of Company Code or Company"/><Property MaxLength="30" Name="ProcmtHubPlantName" Type="Edm.String" sap:label="Plant Name"/></EntityType>
+			<EntityType Name="C_ProcmtHubPurgOrgSystemVHType" sap:content-version="1" sap:label="Backend Purchasing Org System Value Help">
+				<Key><PropertyRef Name="ProcurementHubSourceSystem"/><PropertyRef Name="ProcmtHubPurchasingOrg"/></Key><Property MaxLength="10" Name="ProcurementHubSourceSystem" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Back-end System ID" sap:quickinfo="Back-end System"/><Property MaxLength="4" Name="ProcmtHubPurchasingOrg" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Backend Purch Org" sap:quickinfo="Backend Purchasing Organization" sap:text="ProcmtHubPurgOrgName"/><Property MaxLength="20" Name="ProcmtHubPurgOrgName" Type="Edm.String" sap:display-format="UpperCase" sap:label="Backend Purch Org N" sap:quickinfo="Backend Purchasing Organisation Name"/><Property MaxLength="20" Name="ProcmtHubPurgOrgUniqueID" Type="Edm.String" sap:display-format="UpperCase" sap:label="Backend Purch Org" sap:quickinfo="Backend Purchasing Organization Unique ID"/><Property MaxLength="30" Name="ProcurementHubSourceSystemName" Type="Edm.String" sap:display-format="UpperCase" sap:label="Backend System Name"/></EntityType>
+			<EntityType Name="C_PurchaseOrderTypeValueHelpType" sap:content-version="1" sap:label="Purchase Order Type">
+				<Key><PropertyRef Name="PurchaseOrderType"/></Key><Property MaxLength="4" Name="PurchaseOrderType" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing Doc. Type" sap:quickinfo="Purchasing Document Type" sap:text="PurchaseOrderType_Text"/><Property MaxLength="20" Name="PurchaseOrderType_Text" Type="Edm.String" sap:creatable="false" sap:label="Doc. Type Descript." sap:quickinfo="Short Description of Purchasing Document Type" sap:updatable="false"/></EntityType>
+			<EntityType Name="C_PurchaseReqnTypeVHType" sap:content-version="1" sap:label="Purchase Reqn Type Value Help">
+				<Key><PropertyRef Name="PurchaseRequisitionType"/></Key><Property MaxLength="4" Name="PurchaseRequisitionType" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing Doc. Type" sap:quickinfo="Purchasing Document Type" sap:text="PurchasingDocumentTypeName"/><Property MaxLength="20" Name="PurchasingDocumentTypeName" Type="Edm.String" sap:label="Doc. Type Descript." sap:quickinfo="Short Description of Purchasing Document Type"/></EntityType>
+			<EntityType Name="C_PurchasingGroupValueHelpType" sap:content-version="1" sap:label="Purchasing Group Value Help">
+				<Key><PropertyRef Name="PurchasingGroup"/></Key><Property MaxLength="3" Name="PurchasingGroup" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing group" sap:text="PurchasingGroupName"/><Property MaxLength="18" Name="PurchasingGroupName" Type="Edm.String" sap:label="Purchasing Grp Name" sap:quickinfo="Purchasing Group Name"/><Property MaxLength="12" Name="PurchasingGroupPhoneNumber" Type="Edm.String" sap:display-format="UpperCase" sap:label="Tel.no. purch. group" sap:quickinfo="Telephone number of purchasing group (buyer group)"/><Property MaxLength="30" Name="PhoneNumber" Type="Edm.String" sap:display-format="UpperCase" sap:label="Telephone" sap:quickinfo="Telephone no.: dialling code+number"/><Property MaxLength="10" Name="PhoneNumberExtension" Type="Edm.String" sap:display-format="UpperCase" sap:label="Extension" sap:quickinfo="Telephone no.: Extension"/><Property MaxLength="31" Name="FaxNumber" Type="Edm.String" sap:label="Fax number" sap:quickinfo="Fax number of purchasing (buyer) group"/><Property MaxLength="241" Name="EmailAddress" Type="Edm.String" sap:label="Email Address" sap:semantics="email"/></EntityType>
+			<EntityType Name="C_QTNFollowOnDocumentVHType" sap:content-version="1" sap:label="Supplier Quotation Follow On Document">
+				<Key><PropertyRef Name="SupplierQuotationType"/><PropertyRef Name="FollowOnDocumentCategory"/><PropertyRef Name="FollowOnDocumentType"/></Key><Property MaxLength="4" Name="SupplierQuotationType" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Quotation Type" sap:quickinfo="Supplier Quotation Document Type"/><Property MaxLength="1" Name="FollowOnDocumentCategory" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Target Doc. Category" sap:quickinfo="Target Purchasing Document Category"/><Property MaxLength="4" Name="FollowOnDocumentType" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Follow-On Doc. Type" sap:quickinfo="Follow-On Purchasing Document Type" sap:text="FollowOnDocumentType_Text"/><Property MaxLength="20" Name="FollowOnDocumentType_Text" Type="Edm.String" sap:creatable="false" sap:label="Doc. Type Descript." sap:quickinfo="Short Description of Purchasing Document Type" sap:updatable="false"/></EntityType>
+			<EntityType Name="I_AccAssgnmtCategoryType" sap:content-version="1" sap:label="Account Assignment Category">
+				<Key><PropertyRef Name="AccountAssignmentCategory"/></Key><Property MaxLength="1" Name="AccountAssignmentCategory" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Acct Assignment Cat." sap:quickinfo="Account Assignment Category"/><Property MaxLength="2" Name="Language" Type="Edm.String" sap:label="Language Key"/><Property MaxLength="20" Name="AcctAssignmentCategoryName" Type="Edm.String" sap:label="AcctAssgntCateg Desc" sap:quickinfo="Account Assignment Category Description"/><Property MaxLength="1" Name="ConsumptionPosting" Type="Edm.String" sap:display-format="UpperCase" sap:label="Consumption posting" sap:quickinfo="Indicator: Consumption posting (Purchasing)"/><Property MaxLength="1" Name="InventorySpecialStockType" Type="Edm.String" sap:display-format="UpperCase" sap:label="Special Stock" sap:quickinfo="Special Stock Indicator"/></EntityType>
+			<EntityType Name="I_Purchasecontracttype_VhType" sap:content-version="1" sap:label="Value Help for Purchase contract">
+				<Key><PropertyRef Name="PurchasingDocumentType"/></Key><Property MaxLength="4" Name="PurchasingDocumentType" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing Doc. Type" sap:quickinfo="Purchasing Document Type" sap:text="PurchasingDocumentTypeName"/><Property MaxLength="20" Name="PurchasingDocumentTypeName" Type="Edm.String" sap:label="Doc. Type Descript." sap:quickinfo="Short Description of Purchasing Document Type"/></EntityType>
+			<EntityType Name="I_PurchasingOrganizationType" sap:content-version="1" sap:label="Purchasing Organization">
+				<Key><PropertyRef Name="PurchasingOrganization"/></Key><Property MaxLength="4" Name="PurchasingOrganization" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing Organization" sap:text="PurchasingOrganizationName"/><Property MaxLength="20" Name="PurchasingOrganizationName" Type="Edm.String" sap:label="Purch. Org. Name" sap:quickinfo="Purchasing Organization Name"/><Property MaxLength="4" Name="CompanyCode" Type="Edm.String" sap:display-format="UpperCase" sap:label="Company Code"/></EntityType>
+			<EntityType Name="I_RequestForQuotationTypeType" sap:content-version="1" sap:label="RFQ Type">
+				<Key><PropertyRef Name="RFQType"/></Key><Property MaxLength="4" Name="RFQType" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing Doc. Type" sap:quickinfo="Purchasing Document Type" sap:text="RFQType_Text"/><Property MaxLength="20" Name="RFQType_Text" Type="Edm.String" sap:creatable="false" sap:label="Doc. Type Descript." sap:quickinfo="Short Description of Purchasing Document Type" sap:updatable="false"/></EntityType>
+			<EntityType Name="I_SchedgagrmttypevhType" sap:content-version="1" sap:label="Scheduling Agreement Document Type">
+				<Key><PropertyRef Name="PurchasingDocumentType"/></Key><Property MaxLength="4" Name="PurchasingDocumentType" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing Doc. Type" sap:quickinfo="Purchasing Document Type" sap:text="PurchasingDocumentTypeName"/><Property MaxLength="20" Name="PurchasingDocumentTypeName" Type="Edm.String" sap:label="Doc. Type Descript." sap:quickinfo="Short Description of Purchasing Document Type"/></EntityType>
+			<EntityType Name="I_SupplierQuotationTypeType" sap:content-version="1" sap:label="Supplier Quotation Type">
+				<Key><PropertyRef Name="SuplrQtnType"/></Key><Property MaxLength="4" Name="SuplrQtnType" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing Doc. Type" sap:quickinfo="Purchasing Document Type" sap:text="SuplrQtnType_Text"/><Property MaxLength="20" Name="SuplrQtnType_Text" Type="Edm.String" sap:creatable="false" sap:label="Doc. Type Descript." sap:quickinfo="Short Description of Purchasing Document Type" sap:updatable="false"/></EntityType>
+			<EntityType Name="I_UnitOfMeasureType" sap:content-version="1" sap:label="Unit of Measure">
+				<Key><PropertyRef Name="UnitOfMeasure"/></Key><Property MaxLength="3" Name="UnitOfMeasure" Nullable="false" Type="Edm.String" sap:label="Internal UoM" sap:quickinfo="Unit of Measurement" sap:semantics="unit-of-measure" sap:text="UnitOfMeasure_Text"/><Property MaxLength="30" Name="UnitOfMeasure_Text" Type="Edm.String" sap:creatable="false" sap:label="UoM Text" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)" sap:updatable="false"/><Property MaxLength="6" Name="UnitOfMeasureDimension" Type="Edm.String" sap:display-format="UpperCase" sap:label="Dimension" sap:quickinfo="Dimension key" sap:text="to_Dimension/UnitOfMeasureDimension_Text" sap:value-list="standard"/><Property MaxLength="3" Name="UnitOfMeasureISOCode" Type="Edm.String" sap:display-format="UpperCase" sap:label="ISO Code" sap:quickinfo="ISO Code for Unit of Measurement"/><Property Name="UnitOfMeasureNumberOfDecimals" Type="Edm.Int16" sap:label="Decimal Rounding" sap:quickinfo="No. of decimal places for rounding"/><Property Name="UnitOfMeasureDspNmbrOfDcmls" Type="Edm.Int16" sap:label="Decimal Places" sap:quickinfo="Number of Decimal Places for Number Display"/><NavigationProperty FromRole="FromRole_assoc_744267C89213C6F0BEAA53E2EB9C8F4F" Name="to_Dimension" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_744267C89213C6F0BEAA53E2EB9C8F4F" ToRole="ToRole_assoc_744267C89213C6F0BEAA53E2EB9C8F4F"/></EntityType>
+			<EntityType Name="I_UnitOfMeasureDimensionType" sap:content-version="1" sap:label="Unit of Measure Dimension">
+				<Key><PropertyRef Name="UnitOfMeasureDimension"/></Key><Property MaxLength="6" Name="UnitOfMeasureDimension" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Dimension" sap:quickinfo="Dimension key" sap:text="UnitOfMeasureDimension_Text"/><Property MaxLength="20" Name="UnitOfMeasureDimension_Text" Type="Edm.String" sap:creatable="false" sap:label="Dimension text" sap:updatable="false"/></EntityType>
+			<EntityType Name="S_CENCTRWORKFLOWRECIPIENTVHType" sap:content-version="1" sap:label="People Picker for Central Contract Approver">
+				<Key><PropertyRef Name="UserID"/></Key><Property MaxLength="12" Name="UserID" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="User ID" sap:text="FullName"/><Property MaxLength="80" Name="FullName" Type="Edm.String" sap:label="Full Name"/><Property MaxLength="60" Name="Employee" Type="Edm.String" sap:display-format="UpperCase" sap:label="Employee ID" sap:quickinfo="Employee number"/></EntityType>
+			<EntityType Name="S_CENPOWORKFLOWRECIPIENTVHType" sap:content-version="1" sap:label="Centrally Managed Purchase Order User">
+				<Key><PropertyRef Name="UserID"/></Key><Property MaxLength="12" Name="UserID" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="User ID" sap:text="FullName"/><Property MaxLength="80" Name="FullName" Type="Edm.String" sap:label="Full Name"/><Property MaxLength="60" Name="Employee" Type="Edm.String" sap:display-format="UpperCase" sap:label="Employee ID" sap:quickinfo="Employee number"/></EntityType>
+			<EntityType Name="S_CTRWORKFLOWRECIPIENTVHType" sap:content-version="1" sap:label="People Picker for Contract Approver">
+				<Key><PropertyRef Name="UserID"/></Key><Property MaxLength="12" Name="UserID" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="User ID" sap:text="FullName"/><Property MaxLength="80" Name="FullName" Type="Edm.String" sap:label="Full Name"/><Property MaxLength="60" Name="Employee" Type="Edm.String" sap:display-format="UpperCase" sap:label="Employee ID" sap:quickinfo="Employee number"/></EntityType>
+			<EntityType Name="S_CURRENCY_VHType" sap:content-version="1" sap:label="Value help for local currency">
+				<Key><PropertyRef Name="Currency"/></Key><Property MaxLength="5" Name="Currency" Nullable="false" Type="Edm.String" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code" sap:text="Currency_Text"/><Property MaxLength="40" Name="Currency_Text" Type="Edm.String" sap:creatable="false" sap:label="Long Text" sap:updatable="false"/><Property Name="Decimals" Type="Edm.Byte" sap:label="Decimals" sap:quickinfo="Number of decimal places"/><Property MaxLength="3" Name="CurrencyISOCode" Type="Edm.String" sap:display-format="UpperCase" sap:label="ISO Code" sap:quickinfo="ISO Currency Code"/><Property MaxLength="3" Name="AlternativeCurrencyKey" Type="Edm.String" sap:display-format="UpperCase" sap:label="Alternative Key" sap:quickinfo="Alternative Key for Currencies"/><Property Name="IsPrimaryCurrencyForISOCrcy" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Primary" sap:quickinfo="Primary SAP Currency Code for ISO Code"/></EntityType>
+			<EntityType Name="S_MMPURWorkflowVHType" sap:content-version="1" sap:label="Value Helps for Manage Workflow Apps">
+				<Key><PropertyRef Name="MMPURWorkflow"/></Key><Property MaxLength="1" Name="MMPURWorkflow" Nullable="false" Type="Edm.String" sap:display-format="UpperCase"/><Property MaxLength="4" Name="CompanyCode" Type="Edm.String" sap:display-format="UpperCase" sap:label="Company Code" sap:value-list="standard"/><Property MaxLength="4" Name="BECCTRCompanyCode" Type="Edm.String" sap:display-format="UpperCase" sap:label="Company Code"/><Property MaxLength="4" Name="BECompanyCode" Type="Edm.String" sap:display-format="UpperCase" sap:label="Company Code" sap:value-list="standard"/><Property MaxLength="3" Name="PurchasingGroup" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing group" sap:value-list="standard"/><Property MaxLength="4" Name="PurchasingOrganization" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purch. Organization" sap:quickinfo="Purchasing Organization" sap:value-list="standard"/><Property MaxLength="4" Name="BEPurchasingOrganization" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purch. Organization" sap:quickinfo="Purchasing Organization" sap:value-list="standard"/><Property MaxLength="4" Name="BEPurchOrg" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purch. Organization" sap:quickinfo="Purchasing Organization" sap:value-list="standard"/><Property MaxLength="9" Name="MaterialGroup" Type="Edm.String" sap:display-format="UpperCase" sap:label="Material Group" sap:value-list="standard"/><Property MaxLength="4" Name="PODocType" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing Doc. Type" sap:quickinfo="Purchasing Document Type" sap:value-list="fixed-values"/><Property MaxLength="4" Name="SADocType" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing Doc. Type" sap:quickinfo="Purchasing Document Type" sap:value-list="fixed-values"/><Property MaxLength="4" Name="CTRDocType" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing Doc. Type" sap:quickinfo="Purchasing Document Type" sap:value-list="standard"/><Property MaxLength="4" Name="CCTRDocType" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing Doc. Type" sap:quickinfo="Purchasing Document Type" sap:value-list="fixed-values"/><Property MaxLength="5" Name="Currency" Type="Edm.String" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code" sap:value-list="standard"/><Property MaxLength="4" Name="Plant" Type="Edm.String" sap:display-format="UpperCase" sap:label="Plant" sap:value-list="standard"/><Property MaxLength="4" Name="BECCTRPlant" Type="Edm.String" sap:display-format="UpperCase" sap:label="Plant" sap:value-list="standard"/><Property MaxLength="4" Name="BEPlant" Type="Edm.String" sap:display-format="UpperCase" sap:label="Plant" sap:value-list="standard"/><Property MaxLength="1" Name="AccAssgnmtCat" Type="Edm.String" sap:display-format="UpperCase" sap:label="Acct Assignment Cat." sap:quickinfo="Account Assignment Category" sap:value-list="standard"/><Property MaxLength="3" Name="UnitOfMeasure" Type="Edm.String" sap:label="Order unit" sap:semantics="unit-of-measure" sap:value-list="standard"/><Property MaxLength="4" Name="SuplrQtnType" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing Doc. Type" sap:quickinfo="Purchasing Document Type" sap:value-list="standard"/><Property MaxLength="4" Name="RFQType" Type="Edm.String" sap:display-format="UpperCase" sap:label="Purchasing Doc. Type" sap:quickinfo="Purchasing Document Type" sap:value-list="standard"/><Property MaxLength="1" Name="FollowOnDocCat" Type="Edm.String" sap:display-format="UpperCase" sap:label="Follow-On Doc. Cat." sap:quickinfo="Follow-On Purchasing Document Category" sap:value-list="standard"/><Property MaxLength="4" Name="FollowOnDocType" Type="Edm.String" sap:display-format="UpperCase" sap:label="Follow-On Doc. Type" sap:quickinfo="Follow-On Purchasing Document Type" sap:value-list="standard"/><Property MaxLength="12" Name="POUser" Type="Edm.String" sap:display-format="UpperCase" sap:label="Chgd by" sap:quickinfo="Changed by" sap:text="to_POUserVH/FullName" sap:value-list="standard"/><Property MaxLength="12" Name="CTRUser" Type="Edm.String" sap:display-format="UpperCase" sap:label="Chgd by" sap:quickinfo="Changed by" sap:text="to_CTRUserVH/FullName" sap:value-list="standard"/><Property MaxLength="12" Name="CCTRUser" Type="Edm.String" sap:display-format="UpperCase" sap:label="Chgd by" sap:quickinfo="Changed by" sap:text="to_CCTRUserVH/FullName" sap:value-list="standard"/><Property MaxLength="12" Name="CPOUser" Type="Edm.String" sap:display-format="UpperCase" sap:label="Chgd by" sap:quickinfo="Changed by" sap:text="to_CPOUserVH/FullName" sap:value-list="standard"/><Property MaxLength="12" Name="SESUser" Type="Edm.String" sap:display-format="UpperCase" sap:label="Chgd by" sap:quickinfo="Changed by" sap:text="to_SESUserVH/FullName" sap:value-list="standard"/><Property MaxLength="12" Name="RFQUser" Type="Edm.String" sap:display-format="UpperCase" sap:label="Chgd by" sap:quickinfo="Changed by" sap:text="to_RFQUserVH/FullName" sap:value-list="standard"/><Property MaxLength="12" Name="QTNUser" Type="Edm.String" sap:display-format="UpperCase" sap:label="Chgd by" sap:quickinfo="Changed by" sap:text="to_QTNUserVH/FullName" sap:value-list="standard"/><Property MaxLength="12" Name="PRUser" Type="Edm.String" sap:display-format="UpperCase" sap:label="Chgd by" sap:quickinfo="Changed by" sap:text="to_PRUserVH/FullName" sap:value-list="standard"/><Property MaxLength="12" Name="SAUser" Type="Edm.String" sap:display-format="UpperCase" sap:label="Chgd by" sap:quickinfo="Changed by" sap:text="to_SAUSERVH/FullName" sap:value-list="standard"/><Property MaxLength="20" Name="CatalogID" Type="Edm.String" sap:label="Web Service ID" sap:quickinfo="Technical Key of a Web Service (for Example - a Catalog)" sap:value-list="standard"/><Property MaxLength="4" Name="DocumentType" Type="Edm.String" sap:display-format="UpperCase" sap:label="Document Type" sap:quickinfo="Purchase Requisition Document Type" sap:value-list="standard"/><Property MaxLength="1" Name="CreationIndicator" Type="Edm.String" sap:display-format="UpperCase" sap:label="Creation indicator" sap:quickinfo="Creation indicator (purchase requisition/schedule lines)" sap:value-list="standard"/><Property MaxLength="1" Name="PRAccAssgnmtCat" Type="Edm.String" sap:display-format="UpperCase" sap:label="Acct Assignment Cat." sap:quickinfo="Account Assignment Category" sap:value-list="standard"/><NavigationProperty FromRole="FromRole_assoc_19012F3B9ABA6FDA0C5CBC2483F278B6" Name="to_AccAssgnmtCatVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_19012F3B9ABA6FDA0C5CBC2483F278B6" ToRole="ToRole_assoc_19012F3B9ABA6FDA0C5CBC2483F278B6"/><NavigationProperty FromRole="FromRole_assoc_64EBEF2125959677AF016FA7A8F504C2" Name="to_BECCTRCompanyCodeVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_64EBEF2125959677AF016FA7A8F504C2" ToRole="ToRole_assoc_64EBEF2125959677AF016FA7A8F504C2"/><NavigationProperty FromRole="FromRole_assoc_CCDC957A09F903DC108E3FF81B7FB906" Name="to_BECCTRPlantVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_CCDC957A09F903DC108E3FF81B7FB906" ToRole="ToRole_assoc_CCDC957A09F903DC108E3FF81B7FB906"/><NavigationProperty FromRole="FromRole_assoc_85BF60202C7A9F137526CEEAC06E1700" Name="to_BECompanyCodeVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_85BF60202C7A9F137526CEEAC06E1700" ToRole="ToRole_assoc_85BF60202C7A9F137526CEEAC06E1700"/><NavigationProperty FromRole="FromRole_assoc_FA70A8D3790431BF330A4CF7BC662B0F" Name="to_BEPlantVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_FA70A8D3790431BF330A4CF7BC662B0F" ToRole="ToRole_assoc_FA70A8D3790431BF330A4CF7BC662B0F"/><NavigationProperty FromRole="FromRole_assoc_592F00270D8006A08922140065423280" Name="to_BEPurchasingOrgVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_592F00270D8006A08922140065423280" ToRole="ToRole_assoc_592F00270D8006A08922140065423280"/><NavigationProperty FromRole="FromRole_assoc_875D27336EC883BAC254D7312383E95D" Name="to_BEPurchOrgVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_875D27336EC883BAC254D7312383E95D" ToRole="ToRole_assoc_875D27336EC883BAC254D7312383E95D"/><NavigationProperty FromRole="FromRole_assoc_C51672A27027955CF8F0268FC6DB7BC1" Name="to_CatalogVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_C51672A27027955CF8F0268FC6DB7BC1" ToRole="ToRole_assoc_C51672A27027955CF8F0268FC6DB7BC1"/><NavigationProperty FromRole="FromRole_assoc_427D7A4BF92DBDF2ACA7AAB919152143" Name="to_CCTRDocTypeVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_427D7A4BF92DBDF2ACA7AAB919152143" ToRole="ToRole_assoc_427D7A4BF92DBDF2ACA7AAB919152143"/><NavigationProperty FromRole="FromRole_assoc_0FF7EB34A2EA97E59BCDA4326B8EC52C" Name="to_CCTRUserVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_0FF7EB34A2EA97E59BCDA4326B8EC52C" ToRole="ToRole_assoc_0FF7EB34A2EA97E59BCDA4326B8EC52C"/><NavigationProperty FromRole="FromRole_assoc_B96AA62C096BDDC0B69441EA933671F6" Name="to_CompanyCodeVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_B96AA62C096BDDC0B69441EA933671F6" ToRole="ToRole_assoc_B96AA62C096BDDC0B69441EA933671F6"/><NavigationProperty FromRole="FromRole_assoc_8589FFA786A06B2576E88CD3E6A0D166" Name="to_CPOUserVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_8589FFA786A06B2576E88CD3E6A0D166" ToRole="ToRole_assoc_8589FFA786A06B2576E88CD3E6A0D166"/><NavigationProperty FromRole="FromRole_assoc_689BEF3302E539898375F5091F58B3B1" Name="to_CreationIndicatorVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_689BEF3302E539898375F5091F58B3B1" ToRole="ToRole_assoc_689BEF3302E539898375F5091F58B3B1"/><NavigationProperty FromRole="FromRole_assoc_6F406AA3253B5434BACAF3ADD2D38F67" Name="to_CTRDocTypeVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_6F406AA3253B5434BACAF3ADD2D38F67" ToRole="ToRole_assoc_6F406AA3253B5434BACAF3ADD2D38F67"/><NavigationProperty FromRole="FromRole_assoc_2E0FBC39DB631E336E7BA0B05E190E00" Name="to_CTRUserVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_2E0FBC39DB631E336E7BA0B05E190E00" ToRole="ToRole_assoc_2E0FBC39DB631E336E7BA0B05E190E00"/><NavigationProperty FromRole="FromRole_assoc_78F7E941631BC76C6EFA617319EB4A6F" Name="to_CurrencyVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_78F7E941631BC76C6EFA617319EB4A6F" ToRole="ToRole_assoc_78F7E941631BC76C6EFA617319EB4A6F"/><NavigationProperty FromRole="FromRole_assoc_21E88CF76131E80B5D2669BE2E1EE51B" Name="to_MatGroupVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_21E88CF76131E80B5D2669BE2E1EE51B" ToRole="ToRole_assoc_21E88CF76131E80B5D2669BE2E1EE51B"/><NavigationProperty FromRole="FromRole_assoc_2E01C7B5DF9432C5D98758870AE44C31" Name="to_PlantVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_2E01C7B5DF9432C5D98758870AE44C31" ToRole="ToRole_assoc_2E01C7B5DF9432C5D98758870AE44C31"/><NavigationProperty FromRole="FromRole_assoc_F17076A77C5F3AF09A2A29670A54E403" Name="to_PODocTypeVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_F17076A77C5F3AF09A2A29670A54E403" ToRole="ToRole_assoc_F17076A77C5F3AF09A2A29670A54E403"/><NavigationProperty FromRole="FromRole_assoc_6B491388996718ABCBC6A70801BBCEF8" Name="to_POUserVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_6B491388996718ABCBC6A70801BBCEF8" ToRole="ToRole_assoc_6B491388996718ABCBC6A70801BBCEF8"/><NavigationProperty FromRole="FromRole_assoc_7BF22DAE30C0EAE8080E271AA3ED74F7" Name="to_PRAccAssgnmtCatVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_7BF22DAE30C0EAE8080E271AA3ED74F7" ToRole="ToRole_assoc_7BF22DAE30C0EAE8080E271AA3ED74F7"/><NavigationProperty FromRole="FromRole_assoc_D060884207D163ED7405692B16F6B275" Name="to_PRDocTypeVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_D060884207D163ED7405692B16F6B275" ToRole="ToRole_assoc_D060884207D163ED7405692B16F6B275"/><NavigationProperty FromRole="FromRole_assoc_7050BA9268073E412D922AA931BEFE7E" Name="to_PRUserVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_7050BA9268073E412D922AA931BEFE7E" ToRole="ToRole_assoc_7050BA9268073E412D922AA931BEFE7E"/><NavigationProperty FromRole="FromRole_assoc_8DB025ADFA0AFC8F669C9480D3613D4F" Name="to_PurchasingGroupVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_8DB025ADFA0AFC8F669C9480D3613D4F" ToRole="ToRole_assoc_8DB025ADFA0AFC8F669C9480D3613D4F"/><NavigationProperty FromRole="FromRole_assoc_9E91E9C7F92AAA15667FA4C311811457" Name="to_PurchasingOrgVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_9E91E9C7F92AAA15667FA4C311811457" ToRole="ToRole_assoc_9E91E9C7F92AAA15667FA4C311811457"/><NavigationProperty FromRole="FromRole_assoc_43DE3C5CD1F36517DED11EACFE1205C0" Name="to_QTNFollowOnDocCatVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_43DE3C5CD1F36517DED11EACFE1205C0" ToRole="ToRole_assoc_43DE3C5CD1F36517DED11EACFE1205C0"/><NavigationProperty FromRole="FromRole_assoc_6D988AD37AA219CC1CF09960F0BDB625" Name="to_QTNFollowOnDocTypeVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_6D988AD37AA219CC1CF09960F0BDB625" ToRole="ToRole_assoc_6D988AD37AA219CC1CF09960F0BDB625"/><NavigationProperty FromRole="FromRole_assoc_3F71C95E29BF14CB33C5286E15DD8F52" Name="to_QTNUserVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_3F71C95E29BF14CB33C5286E15DD8F52" ToRole="ToRole_assoc_3F71C95E29BF14CB33C5286E15DD8F52"/><NavigationProperty FromRole="FromRole_assoc_3C52B2368009799B3C3DAA764FCF1308" Name="to_RFQTypeVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_3C52B2368009799B3C3DAA764FCF1308" ToRole="ToRole_assoc_3C52B2368009799B3C3DAA764FCF1308"/><NavigationProperty FromRole="FromRole_assoc_CBC50C9D0920D6E7457231DCE6260648" Name="to_RFQUserVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_CBC50C9D0920D6E7457231DCE6260648" ToRole="ToRole_assoc_CBC50C9D0920D6E7457231DCE6260648"/><NavigationProperty FromRole="FromRole_assoc_847FD6A229DCF529E45E2FE594ADAC77" Name="to_SADocTypeVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_847FD6A229DCF529E45E2FE594ADAC77" ToRole="ToRole_assoc_847FD6A229DCF529E45E2FE594ADAC77"/><NavigationProperty FromRole="FromRole_assoc_D3FA045BE6DCF6238AD0B38182050D27" Name="to_SAUSERVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_D3FA045BE6DCF6238AD0B38182050D27" ToRole="ToRole_assoc_D3FA045BE6DCF6238AD0B38182050D27"/><NavigationProperty FromRole="FromRole_assoc_7A5136B8051E7948046D49CD1F9BE2A3" Name="to_SESUserVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_7A5136B8051E7948046D49CD1F9BE2A3" ToRole="ToRole_assoc_7A5136B8051E7948046D49CD1F9BE2A3"/><NavigationProperty FromRole="FromRole_assoc_80CAC505CC2DD85680CBAB3F8885649E" Name="to_SuplrQtnTypeVH" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_80CAC505CC2DD85680CBAB3F8885649E" ToRole="ToRole_assoc_80CAC505CC2DD85680CBAB3F8885649E"/><NavigationProperty FromRole="FromRole_assoc_8817875B4EB6686256E6F1E1E27960AB" Name="to_UnitOfMeasure" Relationship="S_MMPURWORKFLOWVH_CDS.assoc_8817875B4EB6686256E6F1E1E27960AB" ToRole="ToRole_assoc_8817875B4EB6686256E6F1E1E27960AB"/></EntityType>
+			<EntityType Name="S_POWorkFlowRecipientVHType" sap:content-version="1" sap:label="People Picker for Purchase Order Approver">
+				<Key><PropertyRef Name="UserID"/></Key><Property MaxLength="12" Name="UserID" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="User ID" sap:text="FullName"/><Property MaxLength="80" Name="FullName" Type="Edm.String" sap:label="Full Name"/><Property MaxLength="60" Name="Employee" Type="Edm.String" sap:display-format="UpperCase" sap:label="Employee ID" sap:quickinfo="Employee number"/></EntityType>
+			<EntityType Name="S_PRACCOUNTASSIGNMENTVHType" sap:content-version="1" sap:label="PR Account Assignment for Workflow">
+				<Key><PropertyRef Name="AccountAssignmentCategory"/></Key><Property MaxLength="1" Name="AccountAssignmentCategory" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Acct Assignment Cat." sap:quickinfo="Account Assignment Category"/><Property MaxLength="20" Name="AcctAssignmentCategoryName" Type="Edm.String" sap:label="AcctAssgntCateg Desc" sap:quickinfo="Account Assignment Category Description"/></EntityType>
+			<EntityType Name="S_PRCREATIONINDICATORVHType" sap:content-version="1" sap:label="Creation Indicator for Workflow">
+				<Key><PropertyRef Name="CreationIndicator"/></Key><Property MaxLength="1" Name="CreationIndicator" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="Creation indicator" sap:quickinfo="Creation indicator (purchase requisition/schedule lines)" sap:text="CreationIndicator_Text"/><Property MaxLength="60" Name="CreationIndicator_Text" Type="Edm.String" sap:creatable="false" sap:label="Text" sap:quickinfo="Short Text for Fixed Values" sap:updatable="false"/></EntityType>
+			<EntityType Name="S_PRWORKFLOWCATALOGVHType" sap:content-version="1" sap:label="Catalog valuehelp for PR workflow">
+				<Key><PropertyRef Name="CatalogID"/></Key><Property MaxLength="20" Name="CatalogID" Nullable="false" Type="Edm.String" sap:label="Web Service ID" sap:quickinfo="Technical Key of a Web Service (for Example - a Catalog)"/><Property MaxLength="60" Name="Description" Type="Edm.String" sap:label="Description" sap:quickinfo="Description for a Web Service"/></EntityType>
+			<EntityType Name="S_PRWORKFLOWRECIPIENTVHType" sap:content-version="1" sap:label="People picker for PR approver">
+				<Key><PropertyRef Name="UserID"/></Key><Property MaxLength="12" Name="UserID" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="User ID" sap:text="FullName"/><Property MaxLength="80" Name="FullName" Type="Edm.String" sap:label="Full Name"/><Property MaxLength="80" Name="EmployeeFullName" Type="Edm.String" sap:label="Full Name"/><Property MaxLength="60" Name="Employee" Type="Edm.String" sap:display-format="UpperCase" sap:label="Employee ID" sap:quickinfo="Employee number"/></EntityType>
+			<EntityType Name="S_QTNWORKFLOWRECIPIENTVHType" sap:content-version="1" sap:label="People Picker for Quotation Approver">
+				<Key><PropertyRef Name="UserID"/></Key><Property MaxLength="12" Name="UserID" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="User ID" sap:text="FullName"/><Property MaxLength="80" Name="FullName" Type="Edm.String" sap:label="Full Name"/><Property MaxLength="60" Name="Employee" Type="Edm.String" sap:display-format="UpperCase" sap:label="Employee ID" sap:quickinfo="Employee number"/></EntityType>
+			<EntityType Name="S_RFQWORKFLOWRECIPIENTVHType" sap:content-version="1" sap:label="People Picker for Request for Quotation Approver">
+				<Key><PropertyRef Name="UserID"/></Key><Property MaxLength="12" Name="UserID" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="User ID" sap:text="FullName"/><Property MaxLength="80" Name="FullName" Type="Edm.String" sap:label="Full Name"/><Property MaxLength="60" Name="Employee" Type="Edm.String" sap:display-format="UpperCase" sap:label="Employee ID" sap:quickinfo="Employee number"/></EntityType>
+			<EntityType Name="S_SAWORKFLOWRECIPIENTVHType" sap:content-version="1" sap:label="People Picker for Scheduling Agreement Approver">
+				<Key><PropertyRef Name="UserID"/></Key><Property MaxLength="12" Name="UserID" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="User ID" sap:text="FullName"/><Property MaxLength="80" Name="FullName" Type="Edm.String" sap:label="Full Name"/><Property MaxLength="60" Name="Employee" Type="Edm.String" sap:display-format="UpperCase" sap:label="Employee ID" sap:quickinfo="Employee number"/></EntityType>
+			<EntityType Name="S_SESWorkflowRecipientVHType" sap:content-version="1" sap:label="People Picker for Service Entry Sheet Approver">
+				<Key><PropertyRef Name="UserID"/></Key><Property MaxLength="12" Name="UserID" Nullable="false" Type="Edm.String" sap:display-format="UpperCase" sap:label="User ID" sap:text="FullName"/><Property MaxLength="80" Name="FullName" Type="Edm.String" sap:label="Full Name"/><Property MaxLength="60" Name="Employee" Type="Edm.String" sap:display-format="UpperCase" sap:label="Employee ID" sap:quickinfo="Employee number"/></EntityType>
+			<Association Name="assoc_744267C89213C6F0BEAA53E2EB9C8F4F" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_744267C89213C6F0BEAA53E2EB9C8F4F" Type="S_MMPURWORKFLOWVH_CDS.I_UnitOfMeasureType"/><End Multiplicity="0..1" Role="ToRole_assoc_744267C89213C6F0BEAA53E2EB9C8F4F" Type="S_MMPURWORKFLOWVH_CDS.I_UnitOfMeasureDimensionType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_744267C89213C6F0BEAA53E2EB9C8F4F"><PropertyRef Name="UnitOfMeasureDimension"/></Principal>
+					<Dependent Role="FromRole_assoc_744267C89213C6F0BEAA53E2EB9C8F4F"><PropertyRef Name="UnitOfMeasureDimension"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_8EC2ECEF64E090F7A99C883C5D229CB7" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_8EC2ECEF64E090F7A99C883C5D229CB7" Type="S_MMPURWORKFLOWVH_CDS.C_MM_PlantValueHelpType"/><End Multiplicity="1" Role="ToRole_assoc_8EC2ECEF64E090F7A99C883C5D229CB7" Type="S_MMPURWORKFLOWVH_CDS.I_PurchasingOrganizationType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_8EC2ECEF64E090F7A99C883C5D229CB7"><PropertyRef Name="PurchasingOrganization"/></Principal>
+					<Dependent Role="FromRole_assoc_8EC2ECEF64E090F7A99C883C5D229CB7"><PropertyRef Name="PurchasingOrganization"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_19012F3B9ABA6FDA0C5CBC2483F278B6" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_19012F3B9ABA6FDA0C5CBC2483F278B6" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_19012F3B9ABA6FDA0C5CBC2483F278B6" Type="S_MMPURWORKFLOWVH_CDS.I_AccAssgnmtCategoryType"/></Association>
+			<Association Name="assoc_64EBEF2125959677AF016FA7A8F504C2" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_64EBEF2125959677AF016FA7A8F504C2" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_64EBEF2125959677AF016FA7A8F504C2" Type="S_MMPURWORKFLOWVH_CDS.C_CntrlPurContrCoCodeVHType"/></Association>
+			<Association Name="assoc_CCDC957A09F903DC108E3FF81B7FB906" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_CCDC957A09F903DC108E3FF81B7FB906" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_CCDC957A09F903DC108E3FF81B7FB906" Type="S_MMPURWORKFLOWVH_CDS.C_CntrlPurContrPlantVHType"/></Association>
+			<Association Name="assoc_85BF60202C7A9F137526CEEAC06E1700" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_85BF60202C7A9F137526CEEAC06E1700" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_85BF60202C7A9F137526CEEAC06E1700" Type="S_MMPURWORKFLOWVH_CDS.C_ProcmtHubCoCodeSystemVHType"/></Association>
+			<Association Name="assoc_FA70A8D3790431BF330A4CF7BC662B0F" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_FA70A8D3790431BF330A4CF7BC662B0F" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_FA70A8D3790431BF330A4CF7BC662B0F" Type="S_MMPURWORKFLOWVH_CDS.C_ProcmtHubPlantSystemVHType"/></Association>
+			<Association Name="assoc_592F00270D8006A08922140065423280" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_592F00270D8006A08922140065423280" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_592F00270D8006A08922140065423280" Type="S_MMPURWORKFLOWVH_CDS.C_ProcmtHubPurgOrgSystemVHType"/></Association>
+			<Association Name="assoc_875D27336EC883BAC254D7312383E95D" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_875D27336EC883BAC254D7312383E95D" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_875D27336EC883BAC254D7312383E95D" Type="S_MMPURWORKFLOWVH_CDS.C_BackendPurgOrgForCntrlContrType"/></Association>
+			<Association Name="assoc_C51672A27027955CF8F0268FC6DB7BC1" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_C51672A27027955CF8F0268FC6DB7BC1" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_C51672A27027955CF8F0268FC6DB7BC1" Type="S_MMPURWORKFLOWVH_CDS.S_PRWORKFLOWCATALOGVHType"/></Association>
+			<Association Name="assoc_427D7A4BF92DBDF2ACA7AAB919152143" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_427D7A4BF92DBDF2ACA7AAB919152143" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_427D7A4BF92DBDF2ACA7AAB919152143" Type="S_MMPURWORKFLOWVH_CDS.C_CntrlPurContrTypeValueHelpType"/></Association>
+			<Association Name="assoc_0FF7EB34A2EA97E59BCDA4326B8EC52C" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_0FF7EB34A2EA97E59BCDA4326B8EC52C" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_0FF7EB34A2EA97E59BCDA4326B8EC52C" Type="S_MMPURWORKFLOWVH_CDS.S_CENCTRWORKFLOWRECIPIENTVHType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_0FF7EB34A2EA97E59BCDA4326B8EC52C"><PropertyRef Name="UserID"/></Principal>
+					<Dependent Role="FromRole_assoc_0FF7EB34A2EA97E59BCDA4326B8EC52C"><PropertyRef Name="CCTRUser"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_B96AA62C096BDDC0B69441EA933671F6" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_B96AA62C096BDDC0B69441EA933671F6" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_B96AA62C096BDDC0B69441EA933671F6" Type="S_MMPURWORKFLOWVH_CDS.C_MM_CompanyCodeValueHelpType"/></Association>
+			<Association Name="assoc_8589FFA786A06B2576E88CD3E6A0D166" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_8589FFA786A06B2576E88CD3E6A0D166" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_8589FFA786A06B2576E88CD3E6A0D166" Type="S_MMPURWORKFLOWVH_CDS.S_CENPOWORKFLOWRECIPIENTVHType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_8589FFA786A06B2576E88CD3E6A0D166"><PropertyRef Name="UserID"/></Principal>
+					<Dependent Role="FromRole_assoc_8589FFA786A06B2576E88CD3E6A0D166"><PropertyRef Name="CPOUser"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_689BEF3302E539898375F5091F58B3B1" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_689BEF3302E539898375F5091F58B3B1" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_689BEF3302E539898375F5091F58B3B1" Type="S_MMPURWORKFLOWVH_CDS.S_PRCREATIONINDICATORVHType"/></Association>
+			<Association Name="assoc_6F406AA3253B5434BACAF3ADD2D38F67" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_6F406AA3253B5434BACAF3ADD2D38F67" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_6F406AA3253B5434BACAF3ADD2D38F67" Type="S_MMPURWORKFLOWVH_CDS.I_Purchasecontracttype_VhType"/></Association>
+			<Association Name="assoc_2E0FBC39DB631E336E7BA0B05E190E00" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_2E0FBC39DB631E336E7BA0B05E190E00" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_2E0FBC39DB631E336E7BA0B05E190E00" Type="S_MMPURWORKFLOWVH_CDS.S_CTRWORKFLOWRECIPIENTVHType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_2E0FBC39DB631E336E7BA0B05E190E00"><PropertyRef Name="UserID"/></Principal>
+					<Dependent Role="FromRole_assoc_2E0FBC39DB631E336E7BA0B05E190E00"><PropertyRef Name="CTRUser"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_78F7E941631BC76C6EFA617319EB4A6F" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_78F7E941631BC76C6EFA617319EB4A6F" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_78F7E941631BC76C6EFA617319EB4A6F" Type="S_MMPURWORKFLOWVH_CDS.S_CURRENCY_VHType"/></Association>
+			<Association Name="assoc_21E88CF76131E80B5D2669BE2E1EE51B" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_21E88CF76131E80B5D2669BE2E1EE51B" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_21E88CF76131E80B5D2669BE2E1EE51B" Type="S_MMPURWORKFLOWVH_CDS.C_MM_MaterialGroupValueHelpType"/></Association>
+			<Association Name="assoc_2E01C7B5DF9432C5D98758870AE44C31" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_2E01C7B5DF9432C5D98758870AE44C31" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_2E01C7B5DF9432C5D98758870AE44C31" Type="S_MMPURWORKFLOWVH_CDS.C_MM_PlantValueHelpType"/></Association>
+			<Association Name="assoc_F17076A77C5F3AF09A2A29670A54E403" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_F17076A77C5F3AF09A2A29670A54E403" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_F17076A77C5F3AF09A2A29670A54E403" Type="S_MMPURWORKFLOWVH_CDS.C_PurchaseOrderTypeValueHelpType"/></Association>
+			<Association Name="assoc_6B491388996718ABCBC6A70801BBCEF8" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_6B491388996718ABCBC6A70801BBCEF8" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_6B491388996718ABCBC6A70801BBCEF8" Type="S_MMPURWORKFLOWVH_CDS.S_POWorkFlowRecipientVHType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_6B491388996718ABCBC6A70801BBCEF8"><PropertyRef Name="UserID"/></Principal>
+					<Dependent Role="FromRole_assoc_6B491388996718ABCBC6A70801BBCEF8"><PropertyRef Name="POUser"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_7BF22DAE30C0EAE8080E271AA3ED74F7" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_7BF22DAE30C0EAE8080E271AA3ED74F7" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_7BF22DAE30C0EAE8080E271AA3ED74F7" Type="S_MMPURWORKFLOWVH_CDS.S_PRACCOUNTASSIGNMENTVHType"/></Association>
+			<Association Name="assoc_D060884207D163ED7405692B16F6B275" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_D060884207D163ED7405692B16F6B275" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_D060884207D163ED7405692B16F6B275" Type="S_MMPURWORKFLOWVH_CDS.C_PurchaseReqnTypeVHType"/></Association>
+			<Association Name="assoc_7050BA9268073E412D922AA931BEFE7E" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_7050BA9268073E412D922AA931BEFE7E" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_7050BA9268073E412D922AA931BEFE7E" Type="S_MMPURWORKFLOWVH_CDS.S_PRWORKFLOWRECIPIENTVHType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_7050BA9268073E412D922AA931BEFE7E"><PropertyRef Name="UserID"/></Principal>
+					<Dependent Role="FromRole_assoc_7050BA9268073E412D922AA931BEFE7E"><PropertyRef Name="PRUser"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_8DB025ADFA0AFC8F669C9480D3613D4F" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_8DB025ADFA0AFC8F669C9480D3613D4F" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_8DB025ADFA0AFC8F669C9480D3613D4F" Type="S_MMPURWORKFLOWVH_CDS.C_PurchasingGroupValueHelpType"/></Association>
+			<Association Name="assoc_9E91E9C7F92AAA15667FA4C311811457" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_9E91E9C7F92AAA15667FA4C311811457" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_9E91E9C7F92AAA15667FA4C311811457" Type="S_MMPURWORKFLOWVH_CDS.I_PurchasingOrganizationType"/></Association>
+			<Association Name="assoc_43DE3C5CD1F36517DED11EACFE1205C0" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_43DE3C5CD1F36517DED11EACFE1205C0" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_43DE3C5CD1F36517DED11EACFE1205C0" Type="S_MMPURWORKFLOWVH_CDS.C_QTNFollowOnDocumentVHType"/></Association>
+			<Association Name="assoc_6D988AD37AA219CC1CF09960F0BDB625" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_6D988AD37AA219CC1CF09960F0BDB625" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_6D988AD37AA219CC1CF09960F0BDB625" Type="S_MMPURWORKFLOWVH_CDS.C_QTNFollowOnDocumentVHType"/></Association>
+			<Association Name="assoc_3F71C95E29BF14CB33C5286E15DD8F52" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_3F71C95E29BF14CB33C5286E15DD8F52" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_3F71C95E29BF14CB33C5286E15DD8F52" Type="S_MMPURWORKFLOWVH_CDS.S_QTNWORKFLOWRECIPIENTVHType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_3F71C95E29BF14CB33C5286E15DD8F52"><PropertyRef Name="UserID"/></Principal>
+					<Dependent Role="FromRole_assoc_3F71C95E29BF14CB33C5286E15DD8F52"><PropertyRef Name="QTNUser"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_3C52B2368009799B3C3DAA764FCF1308" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_3C52B2368009799B3C3DAA764FCF1308" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_3C52B2368009799B3C3DAA764FCF1308" Type="S_MMPURWORKFLOWVH_CDS.I_RequestForQuotationTypeType"/></Association>
+			<Association Name="assoc_CBC50C9D0920D6E7457231DCE6260648" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_CBC50C9D0920D6E7457231DCE6260648" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_CBC50C9D0920D6E7457231DCE6260648" Type="S_MMPURWORKFLOWVH_CDS.S_RFQWORKFLOWRECIPIENTVHType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_CBC50C9D0920D6E7457231DCE6260648"><PropertyRef Name="UserID"/></Principal>
+					<Dependent Role="FromRole_assoc_CBC50C9D0920D6E7457231DCE6260648"><PropertyRef Name="RFQUser"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_847FD6A229DCF529E45E2FE594ADAC77" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_847FD6A229DCF529E45E2FE594ADAC77" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_847FD6A229DCF529E45E2FE594ADAC77" Type="S_MMPURWORKFLOWVH_CDS.I_SchedgagrmttypevhType"/></Association>
+			<Association Name="assoc_D3FA045BE6DCF6238AD0B38182050D27" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_D3FA045BE6DCF6238AD0B38182050D27" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_D3FA045BE6DCF6238AD0B38182050D27" Type="S_MMPURWORKFLOWVH_CDS.S_SAWORKFLOWRECIPIENTVHType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_D3FA045BE6DCF6238AD0B38182050D27"><PropertyRef Name="UserID"/></Principal>
+					<Dependent Role="FromRole_assoc_D3FA045BE6DCF6238AD0B38182050D27"><PropertyRef Name="SAUser"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_7A5136B8051E7948046D49CD1F9BE2A3" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_7A5136B8051E7948046D49CD1F9BE2A3" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_7A5136B8051E7948046D49CD1F9BE2A3" Type="S_MMPURWORKFLOWVH_CDS.S_SESWorkflowRecipientVHType"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_7A5136B8051E7948046D49CD1F9BE2A3"><PropertyRef Name="UserID"/></Principal>
+					<Dependent Role="FromRole_assoc_7A5136B8051E7948046D49CD1F9BE2A3"><PropertyRef Name="SESUser"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_80CAC505CC2DD85680CBAB3F8885649E" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_80CAC505CC2DD85680CBAB3F8885649E" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_80CAC505CC2DD85680CBAB3F8885649E" Type="S_MMPURWORKFLOWVH_CDS.I_SupplierQuotationTypeType"/></Association>
+			<Association Name="assoc_8817875B4EB6686256E6F1E1E27960AB" sap:content-version="1"><End Multiplicity="1" Role="FromRole_assoc_8817875B4EB6686256E6F1E1E27960AB" Type="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType"/><End Multiplicity="0..1" Role="ToRole_assoc_8817875B4EB6686256E6F1E1E27960AB" Type="S_MMPURWORKFLOWVH_CDS.I_UnitOfMeasureType"/></Association>
+			<EntityContainer Name="S_MMPURWORKFLOWVH_CDS_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx"><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.C_BackendPurgOrgForCntrlContrType" Name="C_BackendPurgOrgForCntrlContr" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.C_CntrlPurContrCoCodeVHType" Name="C_CntrlPurContrCoCodeVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.C_CntrlPurContrPlantVHType" Name="C_CntrlPurContrPlantVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.C_CntrlPurContrTypeValueHelpType" Name="C_CntrlPurContrTypeValueHelp" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.C_MM_CompanyCodeValueHelpType" Name="C_MM_CompanyCodeValueHelp" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.C_MM_MaterialGroupValueHelpType" Name="C_MM_MaterialGroupValueHelp" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.C_MM_PlantValueHelpType" Name="C_MM_PlantValueHelp" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.C_ProcmtHubCoCodeSystemVHType" Name="C_ProcmtHubCoCodeSystemVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.C_ProcmtHubPlantSystemVHType" Name="C_ProcmtHubPlantSystemVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.C_ProcmtHubPurgOrgSystemVHType" Name="C_ProcmtHubPurgOrgSystemVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.C_PurchaseOrderTypeValueHelpType" Name="C_PurchaseOrderTypeValueHelp" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.C_PurchaseReqnTypeVHType" Name="C_PurchaseReqnTypeVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.C_PurchasingGroupValueHelpType" Name="C_PurchasingGroupValueHelp" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.C_QTNFollowOnDocumentVHType" Name="C_QTNFollowOnDocumentVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.I_AccAssgnmtCategoryType" Name="I_AccAssgnmtCategory" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.I_Purchasecontracttype_VhType" Name="I_Purchasecontracttype_Vh" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.I_PurchasingOrganizationType" Name="I_PurchasingOrganization" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.I_RequestForQuotationTypeType" Name="I_RequestForQuotationType" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.I_SchedgagrmttypevhType" Name="I_Schedgagrmttypevh" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.I_SupplierQuotationTypeType" Name="I_SupplierQuotationType" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.I_UnitOfMeasureType" Name="I_UnitOfMeasure" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.I_UnitOfMeasureDimensionType" Name="I_UnitOfMeasureDimension" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.S_CENCTRWORKFLOWRECIPIENTVHType" Name="S_CENCTRWORKFLOWRECIPIENTVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.S_CENPOWORKFLOWRECIPIENTVHType" Name="S_CENPOWORKFLOWRECIPIENTVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.S_CTRWORKFLOWRECIPIENTVHType" Name="S_CTRWORKFLOWRECIPIENTVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.S_CURRENCY_VHType" Name="S_CURRENCY_VH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType" Name="S_MMPURWorkflowVH" sap:content-version="1" sap:deletable="false" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.S_POWorkFlowRecipientVHType" Name="S_POWorkFlowRecipientVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.S_PRACCOUNTASSIGNMENTVHType" Name="S_PRACCOUNTASSIGNMENTVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.S_PRCREATIONINDICATORVHType" Name="S_PRCREATIONINDICATORVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.S_PRWORKFLOWCATALOGVHType" Name="S_PRWORKFLOWCATALOGVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.S_PRWORKFLOWRECIPIENTVHType" Name="S_PRWORKFLOWRECIPIENTVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.S_QTNWORKFLOWRECIPIENTVHType" Name="S_QTNWORKFLOWRECIPIENTVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.S_RFQWORKFLOWRECIPIENTVHType" Name="S_RFQWORKFLOWRECIPIENTVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.S_SAWORKFLOWRECIPIENTVHType" Name="S_SAWORKFLOWRECIPIENTVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/><EntitySet EntityType="S_MMPURWORKFLOWVH_CDS.S_SESWorkflowRecipientVHType" Name="S_SESWorkflowRecipientVH" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:updatable="false"/>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_80CAC505CC2DD85680CBAB3F8885649E" Name="assoc_80CAC505CC2DD85680CBAB3F8885649E" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_80CAC505CC2DD85680CBAB3F8885649E"/><End EntitySet="I_SupplierQuotationType" Role="ToRole_assoc_80CAC505CC2DD85680CBAB3F8885649E"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_0FF7EB34A2EA97E59BCDA4326B8EC52C" Name="assoc_0FF7EB34A2EA97E59BCDA4326B8EC52C" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_0FF7EB34A2EA97E59BCDA4326B8EC52C"/><End EntitySet="S_CENCTRWORKFLOWRECIPIENTVH" Role="ToRole_assoc_0FF7EB34A2EA97E59BCDA4326B8EC52C"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_8817875B4EB6686256E6F1E1E27960AB" Name="assoc_8817875B4EB6686256E6F1E1E27960AB" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_8817875B4EB6686256E6F1E1E27960AB"/><End EntitySet="I_UnitOfMeasure" Role="ToRole_assoc_8817875B4EB6686256E6F1E1E27960AB"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_6B491388996718ABCBC6A70801BBCEF8" Name="assoc_6B491388996718ABCBC6A70801BBCEF8" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_6B491388996718ABCBC6A70801BBCEF8"/><End EntitySet="S_POWorkFlowRecipientVH" Role="ToRole_assoc_6B491388996718ABCBC6A70801BBCEF8"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_7BF22DAE30C0EAE8080E271AA3ED74F7" Name="assoc_7BF22DAE30C0EAE8080E271AA3ED74F7" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_7BF22DAE30C0EAE8080E271AA3ED74F7"/><End EntitySet="S_PRACCOUNTASSIGNMENTVH" Role="ToRole_assoc_7BF22DAE30C0EAE8080E271AA3ED74F7"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_6D988AD37AA219CC1CF09960F0BDB625" Name="assoc_6D988AD37AA219CC1CF09960F0BDB625" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_6D988AD37AA219CC1CF09960F0BDB625"/><End EntitySet="C_QTNFollowOnDocumentVH" Role="ToRole_assoc_6D988AD37AA219CC1CF09960F0BDB625"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_427D7A4BF92DBDF2ACA7AAB919152143" Name="assoc_427D7A4BF92DBDF2ACA7AAB919152143" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_427D7A4BF92DBDF2ACA7AAB919152143"/><End EntitySet="C_CntrlPurContrTypeValueHelp" Role="ToRole_assoc_427D7A4BF92DBDF2ACA7AAB919152143"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_21E88CF76131E80B5D2669BE2E1EE51B" Name="assoc_21E88CF76131E80B5D2669BE2E1EE51B" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_21E88CF76131E80B5D2669BE2E1EE51B"/><End EntitySet="C_MM_MaterialGroupValueHelp" Role="ToRole_assoc_21E88CF76131E80B5D2669BE2E1EE51B"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_592F00270D8006A08922140065423280" Name="assoc_592F00270D8006A08922140065423280" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_592F00270D8006A08922140065423280"/><End EntitySet="C_ProcmtHubPurgOrgSystemVH" Role="ToRole_assoc_592F00270D8006A08922140065423280"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_43DE3C5CD1F36517DED11EACFE1205C0" Name="assoc_43DE3C5CD1F36517DED11EACFE1205C0" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_43DE3C5CD1F36517DED11EACFE1205C0"/><End EntitySet="C_QTNFollowOnDocumentVH" Role="ToRole_assoc_43DE3C5CD1F36517DED11EACFE1205C0"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_85BF60202C7A9F137526CEEAC06E1700" Name="assoc_85BF60202C7A9F137526CEEAC06E1700" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_85BF60202C7A9F137526CEEAC06E1700"/><End EntitySet="C_ProcmtHubCoCodeSystemVH" Role="ToRole_assoc_85BF60202C7A9F137526CEEAC06E1700"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_2E01C7B5DF9432C5D98758870AE44C31" Name="assoc_2E01C7B5DF9432C5D98758870AE44C31" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_2E01C7B5DF9432C5D98758870AE44C31"/><End EntitySet="C_MM_PlantValueHelp" Role="ToRole_assoc_2E01C7B5DF9432C5D98758870AE44C31"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_689BEF3302E539898375F5091F58B3B1" Name="assoc_689BEF3302E539898375F5091F58B3B1" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_689BEF3302E539898375F5091F58B3B1"/><End EntitySet="S_PRCREATIONINDICATORVH" Role="ToRole_assoc_689BEF3302E539898375F5091F58B3B1"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_D3FA045BE6DCF6238AD0B38182050D27" Name="assoc_D3FA045BE6DCF6238AD0B38182050D27" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_D3FA045BE6DCF6238AD0B38182050D27"/><End EntitySet="S_SAWORKFLOWRECIPIENTVH" Role="ToRole_assoc_D3FA045BE6DCF6238AD0B38182050D27"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_7050BA9268073E412D922AA931BEFE7E" Name="assoc_7050BA9268073E412D922AA931BEFE7E" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_7050BA9268073E412D922AA931BEFE7E"/><End EntitySet="S_PRWORKFLOWRECIPIENTVH" Role="ToRole_assoc_7050BA9268073E412D922AA931BEFE7E"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_F17076A77C5F3AF09A2A29670A54E403" Name="assoc_F17076A77C5F3AF09A2A29670A54E403" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_F17076A77C5F3AF09A2A29670A54E403"/><End EntitySet="C_PurchaseOrderTypeValueHelp" Role="ToRole_assoc_F17076A77C5F3AF09A2A29670A54E403"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_8589FFA786A06B2576E88CD3E6A0D166" Name="assoc_8589FFA786A06B2576E88CD3E6A0D166" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_8589FFA786A06B2576E88CD3E6A0D166"/><End EntitySet="S_CENPOWORKFLOWRECIPIENTVH" Role="ToRole_assoc_8589FFA786A06B2576E88CD3E6A0D166"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_2E0FBC39DB631E336E7BA0B05E190E00" Name="assoc_2E0FBC39DB631E336E7BA0B05E190E00" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_2E0FBC39DB631E336E7BA0B05E190E00"/><End EntitySet="S_CTRWORKFLOWRECIPIENTVH" Role="ToRole_assoc_2E0FBC39DB631E336E7BA0B05E190E00"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_875D27336EC883BAC254D7312383E95D" Name="assoc_875D27336EC883BAC254D7312383E95D" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_875D27336EC883BAC254D7312383E95D"/><End EntitySet="C_BackendPurgOrgForCntrlContr" Role="ToRole_assoc_875D27336EC883BAC254D7312383E95D"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_B96AA62C096BDDC0B69441EA933671F6" Name="assoc_B96AA62C096BDDC0B69441EA933671F6" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_B96AA62C096BDDC0B69441EA933671F6"/><End EntitySet="C_MM_CompanyCodeValueHelp" Role="ToRole_assoc_B96AA62C096BDDC0B69441EA933671F6"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_78F7E941631BC76C6EFA617319EB4A6F" Name="assoc_78F7E941631BC76C6EFA617319EB4A6F" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_78F7E941631BC76C6EFA617319EB4A6F"/><End EntitySet="S_CURRENCY_VH" Role="ToRole_assoc_78F7E941631BC76C6EFA617319EB4A6F"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_3C52B2368009799B3C3DAA764FCF1308" Name="assoc_3C52B2368009799B3C3DAA764FCF1308" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_3C52B2368009799B3C3DAA764FCF1308"/><End EntitySet="I_RequestForQuotationType" Role="ToRole_assoc_3C52B2368009799B3C3DAA764FCF1308"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_CCDC957A09F903DC108E3FF81B7FB906" Name="assoc_CCDC957A09F903DC108E3FF81B7FB906" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_CCDC957A09F903DC108E3FF81B7FB906"/><End EntitySet="C_CntrlPurContrPlantVH" Role="ToRole_assoc_CCDC957A09F903DC108E3FF81B7FB906"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_64EBEF2125959677AF016FA7A8F504C2" Name="assoc_64EBEF2125959677AF016FA7A8F504C2" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_64EBEF2125959677AF016FA7A8F504C2"/><End EntitySet="C_CntrlPurContrCoCodeVH" Role="ToRole_assoc_64EBEF2125959677AF016FA7A8F504C2"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_D060884207D163ED7405692B16F6B275" Name="assoc_D060884207D163ED7405692B16F6B275" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_D060884207D163ED7405692B16F6B275"/><End EntitySet="C_PurchaseReqnTypeVH" Role="ToRole_assoc_D060884207D163ED7405692B16F6B275"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_744267C89213C6F0BEAA53E2EB9C8F4F" Name="assoc_744267C89213C6F0BEAA53E2EB9C8F4F" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="I_UnitOfMeasure" Role="FromRole_assoc_744267C89213C6F0BEAA53E2EB9C8F4F"/><End EntitySet="I_UnitOfMeasureDimension" Role="ToRole_assoc_744267C89213C6F0BEAA53E2EB9C8F4F"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_19012F3B9ABA6FDA0C5CBC2483F278B6" Name="assoc_19012F3B9ABA6FDA0C5CBC2483F278B6" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_19012F3B9ABA6FDA0C5CBC2483F278B6"/><End EntitySet="I_AccAssgnmtCategory" Role="ToRole_assoc_19012F3B9ABA6FDA0C5CBC2483F278B6"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_8EC2ECEF64E090F7A99C883C5D229CB7" Name="assoc_8EC2ECEF64E090F7A99C883C5D229CB7" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="C_MM_PlantValueHelp" Role="FromRole_assoc_8EC2ECEF64E090F7A99C883C5D229CB7"/><End EntitySet="I_PurchasingOrganization" Role="ToRole_assoc_8EC2ECEF64E090F7A99C883C5D229CB7"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_7A5136B8051E7948046D49CD1F9BE2A3" Name="assoc_7A5136B8051E7948046D49CD1F9BE2A3" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_7A5136B8051E7948046D49CD1F9BE2A3"/><End EntitySet="S_SESWorkflowRecipientVH" Role="ToRole_assoc_7A5136B8051E7948046D49CD1F9BE2A3"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_9E91E9C7F92AAA15667FA4C311811457" Name="assoc_9E91E9C7F92AAA15667FA4C311811457" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_9E91E9C7F92AAA15667FA4C311811457"/><End EntitySet="I_PurchasingOrganization" Role="ToRole_assoc_9E91E9C7F92AAA15667FA4C311811457"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_8DB025ADFA0AFC8F669C9480D3613D4F" Name="assoc_8DB025ADFA0AFC8F669C9480D3613D4F" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_8DB025ADFA0AFC8F669C9480D3613D4F"/><End EntitySet="C_PurchasingGroupValueHelp" Role="ToRole_assoc_8DB025ADFA0AFC8F669C9480D3613D4F"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_6F406AA3253B5434BACAF3ADD2D38F67" Name="assoc_6F406AA3253B5434BACAF3ADD2D38F67" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_6F406AA3253B5434BACAF3ADD2D38F67"/><End EntitySet="I_Purchasecontracttype_Vh" Role="ToRole_assoc_6F406AA3253B5434BACAF3ADD2D38F67"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_3F71C95E29BF14CB33C5286E15DD8F52" Name="assoc_3F71C95E29BF14CB33C5286E15DD8F52" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_3F71C95E29BF14CB33C5286E15DD8F52"/><End EntitySet="S_QTNWORKFLOWRECIPIENTVH" Role="ToRole_assoc_3F71C95E29BF14CB33C5286E15DD8F52"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_847FD6A229DCF529E45E2FE594ADAC77" Name="assoc_847FD6A229DCF529E45E2FE594ADAC77" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_847FD6A229DCF529E45E2FE594ADAC77"/><End EntitySet="I_Schedgagrmttypevh" Role="ToRole_assoc_847FD6A229DCF529E45E2FE594ADAC77"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_CBC50C9D0920D6E7457231DCE6260648" Name="assoc_CBC50C9D0920D6E7457231DCE6260648" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_CBC50C9D0920D6E7457231DCE6260648"/><End EntitySet="S_RFQWORKFLOWRECIPIENTVH" Role="ToRole_assoc_CBC50C9D0920D6E7457231DCE6260648"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_FA70A8D3790431BF330A4CF7BC662B0F" Name="assoc_FA70A8D3790431BF330A4CF7BC662B0F" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_FA70A8D3790431BF330A4CF7BC662B0F"/><End EntitySet="C_ProcmtHubPlantSystemVH" Role="ToRole_assoc_FA70A8D3790431BF330A4CF7BC662B0F"/></AssociationSet>
+				<AssociationSet Association="S_MMPURWORKFLOWVH_CDS.assoc_C51672A27027955CF8F0268FC6DB7BC1" Name="assoc_C51672A27027955CF8F0268FC6DB7BC1" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:updatable="false"><End EntitySet="S_MMPURWorkflowVH" Role="FromRole_assoc_C51672A27027955CF8F0268FC6DB7BC1"/><End EntitySet="S_PRWORKFLOWCATALOGVH" Role="ToRole_assoc_C51672A27027955CF8F0268FC6DB7BC1"/></AssociationSet>
+			</EntityContainer>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.C_MM_PlantValueHelpType/PurchasingOrganization" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Purchasing Organization"/><PropertyValue Property="CollectionPath" String="I_PurchasingOrganization"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="PurchasingOrganization"/><PropertyValue Property="ValueListProperty" String="PurchasingOrganization"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PurchasingOrganizationName"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.I_UnitOfMeasureType/UnitOfMeasureDimension" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Unit of Measure Dimension"/><PropertyValue Property="CollectionPath" String="I_UnitOfMeasureDimension"/><PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="UnitOfMeasureDimension"/><PropertyValue Property="ValueListProperty" String="UnitOfMeasureDimension"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="UnitOfMeasureDimension_Text"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/CompanyCode" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Company Code Value Help"/><PropertyValue Property="CollectionPath" String="C_MM_CompanyCodeValueHelp"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/><PropertyValue Property="ValueListProperty" String="CompanyCode"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="CompanyCodeName"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/BECompanyCode" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Backend Company Code System Value Help"/><PropertyValue Property="CollectionPath" String="C_ProcmtHubCoCodeSystemVH"/><PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="BECompanyCode"/><PropertyValue Property="ValueListProperty" String="ProcmtHubCompanyCodeUniqueID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="ProcurementHubSourceSystem"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="ProcmtHubCompanyCode"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="ProcmtHubCompanyCodeName"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/PurchasingGroup" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Purchasing Group Value Help"/><PropertyValue Property="CollectionPath" String="C_PurchasingGroupValueHelp"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="PurchasingGroup"/><PropertyValue Property="ValueListProperty" String="PurchasingGroup"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PurchasingGroupName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PurchasingGroupPhoneNumber"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PhoneNumber"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PhoneNumberExtension"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="FaxNumber"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="EmailAddress"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/PurchasingOrganization" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Purchasing Organization"/><PropertyValue Property="CollectionPath" String="I_PurchasingOrganization"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="PurchasingOrganization"/><PropertyValue Property="ValueListProperty" String="PurchasingOrganization"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PurchasingOrganizationName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="CompanyCode"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/BEPurchasingOrganization" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Backend Purchasing Org System Value Help"/><PropertyValue Property="CollectionPath" String="C_ProcmtHubPurgOrgSystemVH"/><PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="BEPurchasingOrganization"/><PropertyValue Property="ValueListProperty" String="ProcmtHubPurchasingOrg"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="ProcurementHubSourceSystem"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="ProcmtHubPurgOrgName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="ProcmtHubPurgOrgUniqueID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="ProcurementHubSourceSystemName"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/BEPurchOrg" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Backend Purchasing Orgs for Cntrl Pur Contr Hub Scenario"/><PropertyValue Property="CollectionPath" String="C_BackendPurgOrgForCntrlContr"/><PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="BEPurchOrg"/><PropertyValue Property="ValueListProperty" String="PurchasingOrganization"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="LogicalSystem"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PurchasingOrganizationName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="CompanyCode"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Plant"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/MaterialGroup" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Material Group Value Help"/><PropertyValue Property="CollectionPath" String="C_MM_MaterialGroupValueHelp"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="MaterialGroup"/><PropertyValue Property="ValueListProperty" String="MaterialGroup"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="MaterialGroupName"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/PODocType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Purchase Order Type"/><PropertyValue Property="CollectionPath" String="C_PurchaseOrderTypeValueHelp"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="PODocType"/><PropertyValue Property="ValueListProperty" String="PurchaseOrderType"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PurchaseOrderType_Text"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/SADocType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Scheduling Agreement Document Type"/><PropertyValue Property="CollectionPath" String="I_Schedgagrmttypevh"/><PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="SADocType"/><PropertyValue Property="ValueListProperty" String="PurchasingDocumentType"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PurchasingDocumentTypeName"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/CTRDocType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Value Help for Purchase contract"/><PropertyValue Property="CollectionPath" String="I_Purchasecontracttype_Vh"/><PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="CTRDocType"/><PropertyValue Property="ValueListProperty" String="PurchasingDocumentType"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PurchasingDocumentTypeName"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/CCTRDocType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="View for Contract Type F4 Help in Central Purchase Contract"/><PropertyValue Property="CollectionPath" String="C_CntrlPurContrTypeValueHelp"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="CCTRDocType"/><PropertyValue Property="ValueListProperty" String="PurchasingDocumentType"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PurchasingDocumentTypeName"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/Currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Value help for local currency"/><PropertyValue Property="CollectionPath" String="S_CURRENCY_VH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="Currency"/><PropertyValue Property="ValueListProperty" String="Currency"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Currency_Text"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Decimals"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="CurrencyISOCode"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="AlternativeCurrencyKey"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="IsPrimaryCurrencyForISOCrcy"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/Plant" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Plant Value Help"/><PropertyValue Property="CollectionPath" String="C_MM_PlantValueHelp"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="Plant"/><PropertyValue Property="ValueListProperty" String="Plant"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PurchasingOrganization"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PlantName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PurchasingOrganizationName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="CityName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PostalCode"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/BECCTRPlant" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="C-View for Plant F4 Help in Central Purchase Contract"/><PropertyValue Property="CollectionPath" String="C_CntrlPurContrPlantVH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="BECCTRPlant"/><PropertyValue Property="ValueListProperty" String="Plant"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Material"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="CompanyCode"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="LogicalSystem"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/BEPlant" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Backend Plant System Value Help"/><PropertyValue Property="CollectionPath" String="C_ProcmtHubPlantSystemVH"/><PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="BEPlant"/><PropertyValue Property="ValueListProperty" String="ProcmtHubPlantUniqueID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="ProcurementHubSourceSystem"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="ProcmtHubCompanyCode"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="ProcmtHubPlant"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="ProcmtHubCompanyCodeName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="ProcmtHubPlantName"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/AccAssgnmtCat" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Account Assignment Category"/><PropertyValue Property="CollectionPath" String="I_AccAssgnmtCategory"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="AccAssgnmtCat"/><PropertyValue Property="ValueListProperty" String="AccountAssignmentCategory"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Language"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="AcctAssignmentCategoryName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="ConsumptionPosting"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="InventorySpecialStockType"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/UnitOfMeasure" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Unit of Measure"/><PropertyValue Property="CollectionPath" String="I_UnitOfMeasure"/><PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="UnitOfMeasure"/><PropertyValue Property="ValueListProperty" String="UnitOfMeasure"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="UnitOfMeasure_Text"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="UnitOfMeasureDimension"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="UnitOfMeasureISOCode"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="UnitOfMeasureNumberOfDecimals"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="UnitOfMeasureDspNmbrOfDcmls"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/SuplrQtnType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Supplier Quotation Type"/><PropertyValue Property="CollectionPath" String="I_SupplierQuotationType"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="SuplrQtnType"/><PropertyValue Property="ValueListProperty" String="SuplrQtnType"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="SuplrQtnType_Text"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/RFQType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="RFQ Type"/><PropertyValue Property="CollectionPath" String="I_RequestForQuotationType"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="RFQType"/><PropertyValue Property="ValueListProperty" String="RFQType"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="RFQType_Text"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/FollowOnDocCat" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Supplier Quotation Follow On Document"/><PropertyValue Property="CollectionPath" String="C_QTNFollowOnDocumentVH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="FollowOnDocCat"/><PropertyValue Property="ValueListProperty" String="FollowOnDocumentCategory"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="SupplierQuotationType"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="FollowOnDocumentType"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="FollowOnDocumentType_Text"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/FollowOnDocType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Supplier Quotation Follow On Document"/><PropertyValue Property="CollectionPath" String="C_QTNFollowOnDocumentVH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="FollowOnDocType"/><PropertyValue Property="ValueListProperty" String="FollowOnDocumentType"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="SupplierQuotationType"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="FollowOnDocumentCategory"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="FollowOnDocumentType_Text"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/POUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="People Picker for Purchase Order Approver"/><PropertyValue Property="CollectionPath" String="S_POWorkFlowRecipientVH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="POUser"/><PropertyValue Property="ValueListProperty" String="UserID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="FullName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Employee"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/CTRUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="People Picker for Contract Approver"/><PropertyValue Property="CollectionPath" String="S_CTRWORKFLOWRECIPIENTVH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="CTRUser"/><PropertyValue Property="ValueListProperty" String="UserID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="FullName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Employee"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/CCTRUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="People Picker for Central Contract Approver"/><PropertyValue Property="CollectionPath" String="S_CENCTRWORKFLOWRECIPIENTVH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="CCTRUser"/><PropertyValue Property="ValueListProperty" String="UserID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="FullName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Employee"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/CPOUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Centrally Managed Purchase Order User"/><PropertyValue Property="CollectionPath" String="S_CENPOWORKFLOWRECIPIENTVH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="CPOUser"/><PropertyValue Property="ValueListProperty" String="UserID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="FullName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Employee"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/SESUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="People Picker for Service Entry Sheet Approver"/><PropertyValue Property="CollectionPath" String="S_SESWorkflowRecipientVH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="SESUser"/><PropertyValue Property="ValueListProperty" String="UserID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="FullName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Employee"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/RFQUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="People Picker for Request for Quotation Approver"/><PropertyValue Property="CollectionPath" String="S_RFQWORKFLOWRECIPIENTVH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="RFQUser"/><PropertyValue Property="ValueListProperty" String="UserID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="FullName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Employee"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/QTNUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="People Picker for Quotation Approver"/><PropertyValue Property="CollectionPath" String="S_QTNWORKFLOWRECIPIENTVH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="QTNUser"/><PropertyValue Property="ValueListProperty" String="UserID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="FullName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Employee"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/PRUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="People picker for PR approver"/><PropertyValue Property="CollectionPath" String="S_PRWORKFLOWRECIPIENTVH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="PRUser"/><PropertyValue Property="ValueListProperty" String="UserID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="FullName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="EmployeeFullName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Employee"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/SAUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="People Picker for Scheduling Agreement Approver"/><PropertyValue Property="CollectionPath" String="S_SAWORKFLOWRECIPIENTVH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="SAUser"/><PropertyValue Property="ValueListProperty" String="UserID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="FullName"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Employee"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/CatalogID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Catalog valuehelp for PR workflow"/><PropertyValue Property="CollectionPath" String="S_PRWORKFLOWCATALOGVH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="CatalogID"/><PropertyValue Property="ValueListProperty" String="CatalogID"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="Description"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/DocumentType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Purchase Reqn Type Value Help"/><PropertyValue Property="CollectionPath" String="C_PurchaseReqnTypeVH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="DocumentType"/><PropertyValue Property="ValueListProperty" String="PurchaseRequisitionType"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="PurchasingDocumentTypeName"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/CreationIndicator" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Creation Indicator for Workflow"/><PropertyValue Property="CollectionPath" String="S_PRCREATIONINDICATORVH"/><PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="CreationIndicator"/><PropertyValue Property="ValueListProperty" String="CreationIndicator"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="CreationIndicator_Text"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_MMPURWorkflowVHType/PRAccAssgnmtCat" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="PR Account Assignment for Workflow"/><PropertyValue Property="CollectionPath" String="S_PRACCOUNTASSIGNMENTVH"/><PropertyValue Bool="true" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="PRAccAssgnmtCat"/><PropertyValue Property="ValueListProperty" String="AccountAssignmentCategory"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="AcctAssignmentCategoryName"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.C_BackendPurgOrgForCntrlContrType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>PurchasingOrganization</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.C_CntrlPurContrCoCodeVHType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>CompanyCode</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.C_CntrlPurContrTypeValueHelpType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>PurchasingDocumentType</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.C_MM_CompanyCodeValueHelpType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>CompanyCode</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.C_MM_MaterialGroupValueHelpType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>MaterialGroup</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.C_MM_PlantValueHelpType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>PurchasingOrganization</PropertyPath>
+						<PropertyPath>Plant</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.C_ProcmtHubCoCodeSystemVHType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>ProcmtHubCompanyCode</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.C_ProcmtHubPlantSystemVHType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>ProcmtHubPlant</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.C_ProcmtHubPurgOrgSystemVHType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>ProcmtHubPurchasingOrg</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.C_PurchasingGroupValueHelpType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>PurchasingGroup</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.I_RequestForQuotationTypeType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>RFQType</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.I_SupplierQuotationTypeType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>SuplrQtnType</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_CENCTRWORKFLOWRECIPIENTVHType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>UserID</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_CENPOWORKFLOWRECIPIENTVHType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>UserID</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_CTRWORKFLOWRECIPIENTVHType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>UserID</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_CURRENCY_VHType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>Currency</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_POWorkFlowRecipientVHType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>UserID</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_QTNWORKFLOWRECIPIENTVHType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>UserID</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_RFQWORKFLOWRECIPIENTVHType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>UserID</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_SAWORKFLOWRECIPIENTVHType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>UserID</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="S_MMPURWORKFLOWVH_CDS.S_SESWorkflowRecipientVHType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>UserID</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations><atom:link href="/sap/opu/odata/sap/S_MMPURWorkflowVH_CDS/$metadata" rel="self" xmlns:atom="http://www.w3.org/2005/Atom"/><atom:link href="/sap/opu/odata/sap/S_MMPURWorkflowVH_CDS/$metadata" rel="latest-version" xmlns:atom="http://www.w3.org/2005/Atom"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,51 @@
+<!--
+
+    Copyright (C) 2009-2020 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<TableSelectDialog
+		id="zgestion.petofer::sap.suite.ui.generic.template.ObjectPage.view.Details::C_RequestForQuotationEnhWD-BidderProposal"
+		title="{i18n|sap.suite.ui.generic.template.ObjectPage|C_RequestForQuotationEnhWD>BIDDER_PROPOSALS}" search="searchBidderProposals"
+		confirm="addBidderProposals" items="{ path : 'bidderProposalModel>/results' }" multiSelect="true" cancel="onCancel">
+		<ColumnListItem>
+			<cells>
+				<ObjectIdentifier text="{bidderProposalModel>Supplier}" title="{bidderProposalModel>SupplierName}"/>
+				<ObjectAttribute text="{bidderProposalModel>AddressId}"/>
+				<Text text="{bidderProposalModel>NumberOfCoveredItems}"/>
+				<Text text="{bidderProposalModel>DaysSinceLastOrder}"/>
+				<Text text="{bidderProposalModel>NumberOfPurchaseOrderItems}"/>
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column width="8rem">
+				<header>
+					<Text text="{/#BidderProposalType/Supplier/@sap:label}" tooltip="{/#BidderProposalType/Supplier/@sap:label}" maxLines="2"/>
+				</header>
+			</Column>
+			<Column demandPopin="true" minScreenWidth="Desktop" width="10rem">
+				<header>
+					<Text text="{/#BidderProposalType/AddressId/@sap:label}" tooltip="{/#BidderProposalType/AddressId/@sap:label}" maxLines="2"/>
+				</header>
+			</Column>
+			<Column demandPopin="true" minScreenWidth="Desktop">
+				<header>
+					<Text text="{/#BidderProposalType/NumberOfCoveredItems/@sap:label}" tooltip="{/#BidderProposalType/NumberOfCoveredItems/@sap:label}"
+						maxLines="2"/>
+				</header>
+			</Column>
+			<Column demandPopin="true" minScreenWidth="Desktop">
+				<header>
+					<Text text="{/#BidderProposalType/DaysSinceLastOrder/@sap:label}" tooltip="{/#BidderProposalType/DaysSinceLastOrder/@sap:label}"
+						maxLines="2"/>
+				</header>
+			</Column>
+			<Column demandPopin="true" minScreenWidth="Desktop">
+				<header>
+					<Text text="{/#BidderProposalType/NumberOfPurchaseOrderItems/@sap:label}"
+						tooltip="{/#BidderProposalType/NumberOfPurchaseOrderItems/@sap:label}" maxLines="2"/>
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,13 @@
+<!--
+
+    Copyright (C) 2009-2020 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition xmlns="sap.m" xmlns:smartfilterbar="sap.ui.comp.smartfilterbar" xmlns:core="sap.ui.core">
+	<smartfilterbar:ControlConfiguration id="RFQ.selectionfield.CreationDate" label="{@i18n&gt;@CREATED_ON}" key="CreationDate"
+		index="80" groupId="_BASIC"
+		conditionType="{ module: 'sap.ui.comp.config.condition.DateRangeType', operations: { filter: { path: 'key', contains: 'WEEK', exclude:true } } }"></smartfilterbar:ControlConfiguration>
+	<smartfilterbar:ControlConfiguration id="RFQ.selectionfield.QuotationDeadline" label="{@i18n&gt;@QUOTATION_DEADLINE}" key="QuotationLatestSubmissionDate"
+		index="90" groupId="_BASIC"
+		conditionType="{ module: 'sap.ui.comp.config.condition.DateRangeType', operations: { filter: { path: 'key', contains: 'WEEK', exclude:true } } }"></smartfilterbar:ControlConfiguration>
+</core:FragmentDefinition>

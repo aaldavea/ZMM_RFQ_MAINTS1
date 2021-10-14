@@ -1,0 +1,95 @@
+<!--
+
+    Copyright (C) 2009-2020 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:smartTable="sap.ui.comp.smarttable" xmlns="sap.m">
+	<Dialog id="changeLogDialogId" title="{i18n|sap.suite.ui.generic.template.ObjectPage|C_RequestForQuotationEnhWD&gt;@CHANGELOG_TITLE}"
+		draggable="true" resizable="true">
+		<content>
+			<smartTable:SmartTable entitySet="C_RFQChangeDocumentItem" class="sapUiSmallMargin" tableBindingPath="to_RFQChangeDocumentItem"
+				id="changeLogDialogTable" tableType="ResponsiveTable" useTablePersonalisation="true" enableAutoBinding="true" useExportToExcel="false"
+				requestAtLeastFields="ChangeDocItemChangeType_Text,FullName,CreationDate,CreationDateTime,DatabaseTable_Text,ChangeDocDatabaseTableField_Text"
+				ignoreFromPersonalisation="FullName,ChangeDocItemChangeType_Text,DatabaseTable_Text,ChangeDocDatabaseTableField_Text"
+				beforeRebindTable="onBeforeChangeLogRebind" demandPopin="true">
+				<smartTable:customToolbar>
+					<Toolbar design="Transparent">
+						<ToolbarSpacer/>
+						<SearchField width="40%" class="sapUMediumlMargin" search="handleChangeLogSearch"/>
+					</Toolbar>
+				</smartTable:customToolbar>
+				<Table growing="true" growingThreshold="20" growingScrollToLoad="true">
+					<columns>
+						<Column mergeDuplicates="true">
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"columnKey": "ChangeDocItemChangeType", "columnIndex":"0", "leadingProperty": "ChangeDocItemChangeType"}'/>
+							</customData>
+							<Text text="{/#C_RFQChangeDocumentItemType/ChangeDocItemChangeType/@sap:label}"/>
+						</Column>
+						<Column mergeDuplicates="true">
+							<customData>
+								<core:CustomData key="p13nData" value='\{"columnKey": "DatabaseTable", "columnIndex":"1", "leadingProperty": "DatabaseTable"}'/>
+							</customData>
+							<Text text="{/#C_RFQChangeDocumentItemType/DatabaseTable/@sap:label}"/>
+						</Column>
+						<Column mergeDuplicates="true">
+							<customData>
+								<core:CustomData key="p13nData" value='\{"columnKey": "ChangeDocTableKey", "columnIndex":"2", "leadingProperty": "ChangeDocTableKey"}'/>
+							</customData>
+							<Text text="{/#C_RFQChangeDocumentItemType/ChangeDocTableKey/@sap:label}"/>
+						</Column>
+						<Column>
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"columnKey": "ChangeDocDatabaseTableField", "columnIndex":"3", "leadingProperty": "ChangeDocDatabaseTableField"}'/>
+							</customData>
+							<Text text="{@i18n>Field}"/>
+						</Column>
+						<Column>
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"columnKey": "ChangeDocPreviousFieldValue", "columnIndex":"4", "leadingProperty": "ChangeDocPreviousFieldValue"}'/>
+							</customData>
+							<Text text="{@i18n>OldValue}"/>
+						</Column>
+						<Column>
+							<customData>
+								<core:CustomData key="p13nData"
+									value='\{"columnKey": "ChangeDocNewFieldValue", "columnIndex":"5", "leadingProperty": "ChangeDocNewFieldValue"}'/>
+							</customData>
+							<Text text="{@i18n>NewValue}"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text text="{ChangeDocItemChangeType_Text}"/>
+							</cells>
+							<cells>
+								<Text text="{DatabaseTable_Text}"/>
+							</cells>
+							<cells>
+								<Text
+									text="{parts:[ {path:'DatabaseTable'}, {path:'ChangeDocTableKey'}], formatter:'zgestion.petofer.ext.util.formatter.formatTableKey'}"/>
+							</cells>
+							<cells>
+								<Text
+									text="{parts:[ {path:'ChangeDocDatabaseTableField_Text'}, {path:'ChangeDocDatabaseTableField'}], formatter:'zgestion.petofer.ext.util.formatter.formatTableField'}"/>
+							</cells>
+							<cells>
+								<Text text="{ChangeDocPreviousFieldValue}"/>
+							</cells>
+							<cells>
+								<Text text="{ChangeDocNewFieldValue}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</smartTable:SmartTable>
+		</content>
+		<endButton>
+			<Button text="{i18n|sap.suite.ui.generic.template.ObjectPage|C_RequestForQuotationEnhWD&gt;@CLOSE_BTN}" press="onCloseChangeLogDialog"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
