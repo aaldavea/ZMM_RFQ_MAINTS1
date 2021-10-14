@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (C) 2009-2020 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+	<edmx:Reference Uri="/sap/bc/ui5_ui5/ui2/ushell/resources/sap/ushell/components/factsheet/vocabularies/UI.xml">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="/sap/opu/odata/sap/MM_PUR_RFQ_MAINTAIN_SRV/$metadata">
+		<edmx:Include Alias="MM_PUR_RFQ_MAINTAIN_SRV" Namespace="MM_PUR_RFQ_MAINTAIN_SRV"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="/sap/bc/ui5_ui5/ui2/ushell/resources/sap/ushell/components/factsheet/vocabularies/Communication.xml">
+		<edmx:Include Alias="vCard" Namespace="com.sap.vocabularies.Communication.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="/sap/bc/ui5_ui5/ui2/ushell/resources/sap/ushell/components/factsheet/vocabularies/Common.xml">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/vocabularies/Org.OData.Core.V1.xml">
+		<edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/cs01/vocabularies/Org.OData.Measures.V1.xml">
+		<edmx:Include Alias="CQP" Namespace="Org.OData.Measures.V1"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm">
+			<!--===============================================================================
+                Entity Type from chosen collection 
+                ================================================================================-->
+			<Annotations Target="MM_PUR_RFQ_MAINTAIN_SRV.C_RequestForQuotationEnhWDType">
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant">
+					<Record>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@UI.LineItem</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="RequestAtLeast">
+							<Collection>
+								<PropertyPath>RequestForQuotation</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="SortOrder">
+							<Collection>
+								<Record>
+									<PropertyValue Property="Property" PropertyPath="RequestForQuotation"/>
+									<PropertyValue Property="Descending" Bool="true"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="GroupBy"/>
+						<PropertyValue Property="TotalBy"/>
+						<PropertyValue Property="Total"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Facets">
+					<Collection>
+						<Record Type="UI.CollectionFacet">
+							<PropertyValue Property="Label" String="{@i18n&gt;@GeneralInfoFacetLabel}"/>
+							<PropertyValue Property="ID" String="GeneralInformation"/>
+							<PropertyValue Property="Facets">
+								<Collection>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Label" String="{@i18n&gt;@BASIC_DATA}"/>
+										<PropertyValue Property="ID" String="BasicData"/>
+										<PropertyValue AnnotationPath="@UI.Identification" Property="Target"/>
+									</Record>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Label" String="{@i18n&gt;@IMPORTANT_DATES}"/>
+										<PropertyValue Property="ID" String="ImportantDates"/>
+										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#ImportantDates"/>
+									</Record>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Label" String="{@i18n&gt;@ORGANIZATION}"/>
+										<PropertyValue Property="ID" String="Organization"/>
+										<PropertyValue AnnotationPath="@UI.FieldGroup#Organization" Property="Target"/>
+									</Record>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Label" String="{@i18n&gt;@FOLLOWON}"/>
+										<PropertyValue Property="ID" String="FollowOn"/>
+										<PropertyValue AnnotationPath="@UI.FieldGroup#FollowOn" Property="Target"/>
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+						<Record Type="UI.CollectionFacet">
+							<PropertyValue Property="Label" String="{@i18n&gt;@DELIVERY_AND_PAYMENT_TERMS}"/>
+							<PropertyValue Property="ID" String="DeliveryPayment"/>
+							<PropertyValue Property="Facets">
+								<Collection>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="ID" String="PaymentTerms"/>
+										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#PaymentTerms"/>
+									</Record>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="ID" String="Values"/>
+										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Values"/>
+									</Record>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="ID" String="Incoterms"/>
+										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Incoterms"/>
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="Label" String="{@i18n&gt;@ITEMS}"/>
+							<PropertyValue Property="ID" String="Items"/>
+							<PropertyValue Property="Target" AnnotationPath="to_RFQItemEnhWD/@UI.LineItem"/>
+						</Record>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="Label" String="{@i18n&gt;@BIDDERS}"/>
+							<PropertyValue Property="ID" String="Bidders"/>
+							<PropertyValue Property="Target" AnnotationPath="to_RFQBidderEnhWD/@UI.LineItem"/>
+						</Record>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="Label" String="{@i18n&gt;@OUTPUT_ITEMS}"/>
+							<PropertyValue Property="ID" String="OutputManagement"/>
+							<PropertyValue Property="Target" AnnotationPath="@UI.Facets"/>
+						</Record>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="Label" String="{@i18n&gt;@QUOTES}"/>
+							<PropertyValue Property="ID" String="SupplierQuotation"/>
+							<PropertyValue Property="Target" AnnotationPath="to_SupplierQuotation/@UI.LineItem"/>
+						</Record>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="Label" String="{@i18n&gt;@LEGALTRANSACTIONS}"/>
+							<PropertyValue Property="ID" String="LegalTransaction"/>
+							<PropertyValue Property="Target" AnnotationPath="to_LegalTransaction/@UI.LineItem"/>
+						</Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.HeaderFacets">
+					<Collection>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="ID" String="Creation"/>
+							<PropertyValue AnnotationPath="@UI.FieldGroup#Creation" Property="Target"/>
+						</Record>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="ID" String="Status"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;@STATUS}"/>
+							<PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#RFQLifecycleStatus"/>
+						</Record>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="ID" String="TargetValue"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;@TARGET_VALUE}"/>
+							<PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#TargetAmount"/>
+						</Record>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="ID" String="SubmissionDeadline"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;@SUBMISSION_DEADLINE}"/>
+							<PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#QuotationLatestSubmissionDate"/>
+						</Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="DocTypeSelection">
+					<Record>
+						<PropertyValue Property="SourceProperties">
+							<Collection>
+								<PropertyPath>PurchasingDocumentType</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="EffectTypes" EnumMember="ValueChange"/>
+						<PropertyValue Property="TargetEntities">
+							<Collection>
+								<NavigationPropertyPath/>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="PurchOrgChange">
+					<Record>
+						<PropertyValue Property="SourceProperties">
+							<Collection>
+								<PropertyPath>PurchasingOrganization</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="EffectTypes" EnumMember="ValueChange"/>
+						<PropertyValue Property="TargetProperties">
+							<Collection>
+								<PropertyPath>CompanyCode</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="TargetEntities">
+							<Collection>
+								<NavigationPropertyPath>to_RFQItemEnhWD</NavigationPropertyPath>
+								<NavigationPropertyPath>to_RFQBidderEnhWD</NavigationPropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="PaymentTerms1Change">
+					<Record>
+						<PropertyValue Property="SourceProperties">
+							<Collection>
+								<PropertyPath>PaymentTerms</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="EffectTypes" EnumMember="ValueChange"/>
+						<PropertyValue Property="TargetProperties">
+							<Collection>
+								<PropertyPath>CashDiscount1Days</PropertyPath>
+								<PropertyPath>CashDiscount2Days</PropertyPath>
+								<PropertyPath>CashDiscount1Percent</PropertyPath>
+								<PropertyPath>CashDiscount2Percent</PropertyPath>
+								<PropertyPath>NetPaymentDays</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="PaymentTerms2Change">
+					<Record>
+						<PropertyValue Property="SourceProperties">
+							<Collection>
+								<PropertyPath>CashDiscount1Days</PropertyPath>
+								<PropertyPath>CashDiscount2Days</PropertyPath>
+								<PropertyPath>CashDiscount1Percent</PropertyPath>
+								<PropertyPath>CashDiscount2Percent</PropertyPath>
+								<PropertyPath>NetPaymentDays</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="EffectTypes" EnumMember="ValueChange"/>
+						<PropertyValue Property="TargetProperties">
+							<Collection>
+								<PropertyPath>PaymentTerms</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="FollowOnDocChange">
+					<Record>
+						<PropertyValue Property="SourceProperties">
+							<Collection>
+								<PropertyPath>FollowOnDocumentType</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="EffectTypes" EnumMember="ValueChange"/>
+						<PropertyValue Property="TargetProperties">
+							<Collection>
+								<PropertyPath>PurContrValidityStartDate</PropertyPath>
+								<PropertyPath>PurContrValidityEndDate</PropertyPath>
+								<PropertyPath>PurContrValidityStartDate_fc</PropertyPath>
+								<PropertyPath>PurContrValidityEndDate_fc</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="SubmissionDeadlineChange">
+					<Record>
+						<PropertyValue Property="SourceProperties">
+							<Collection>
+								<PropertyPath>QuotationLatestSubmissionDate</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="EffectTypes" EnumMember="ValueChange"/>
+						<PropertyValue Property="TargetEntities">
+							<Collection>
+								<NavigationPropertyPath>to_RFQItemEnhWD</NavigationPropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="HeaderRefreshOnItemCreate">
+					<Record>
+						<PropertyValue Property="SourceEntities">
+							<Collection>
+								<NavigationPropertyPath>to_RFQItemEnhWD</NavigationPropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="EffectTypes" EnumMember="ValueChange"/>
+						<PropertyValue Property="TargetProperties">
+							<Collection>
+								<PropertyPath/>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="HeaderRefreshOnBidderCreate">
+					<Record>
+						<PropertyValue Property="SourceEntities">
+							<Collection>
+								<NavigationPropertyPath>to_RFQBidderEnhWD</NavigationPropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="EffectTypes" EnumMember="ValueChange"/>
+						<PropertyValue Property="TargetProperties">
+							<Collection>
+								<PropertyPath/>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="DocumentCurrencyChange">
+					<Record>
+						<PropertyValue Property="SourceProperties">
+							<Collection>
+								<PropertyPath>DocumentCurrency</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="EffectTypes" EnumMember="ValueChange"/>
+						<PropertyValue Property="TargetProperties">
+							<Collection>
+								<PropertyPath>TargetAmount</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<!--===============================================================================
+                Entity Type from chosen navigation property
+                ================================================================================-->
+			<Annotations Target="MM_PUR_RFQ_MAINTAIN_SRV.C_RFQItemEnhWDType">
+				<Annotation Term="UI.Facets">
+					<Collection>
+						<Record Type="UI.CollectionFacet">
+							<PropertyValue Property="ID" String="GeneralInformation"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;@GeneralInfoFacetLabel}"/>
+							<PropertyValue Property="Facets">
+								<Collection>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue AnnotationPath="@UI.Identification" Property="Target"/>
+										<PropertyValue Property="ID" String="BasicData"/>
+									</Record>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue AnnotationPath="@UI.FieldGroup#PurchaseRequisition" Property="Target"/>
+										<PropertyValue Property="ID" String="PurchaseRequisition"/>
+									</Record>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue AnnotationPath="@UI.FieldGroup#ItemDetail" Property="Target"/>
+										<PropertyValue Property="ID" String="ItemDetail"/>
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant">
+					<Record>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@UI.LineItem</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="RequestAtLeast">
+							<Collection>
+								<PropertyPath>RequestForQuotationItem</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="SortOrder">
+							<Collection>
+								<Record>
+									<PropertyValue Property="Property" PropertyPath="RequestForQuotationItem"/>
+									<PropertyValue Property="Ascending" Bool="true"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="MaterialChange">
+					<Record>
+						<PropertyValue Property="SourceProperties">
+							<Collection>
+								<PropertyPath>Material</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="EffectTypes" EnumMember="ValueChange"/>
+						<PropertyValue Property="TargetProperties">
+							<Collection>
+								<PropertyPath>MaterialGroup</PropertyPath>
+								<PropertyPath>OrderQuantityUnit</PropertyPath>
+								<PropertyPath>PurchasingDocumentItemText</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="TargetEntities">
+							<Collection>
+								<NavigationPropertyPath>to_ProductTypeValueHelp</NavigationPropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="ProductTypeChange">
+					<Record>
+						<PropertyValue Property="SourceProperties">
+							<Collection>
+								<PropertyPath>ProductType</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="EffectTypes" EnumMember="ValueChange"/>
+						<PropertyValue Property="TargetProperties">
+							<Collection>
+								<PropertyPath>ScheduleLineDeliveryDate</PropertyPath>
+								<PropertyPath>PerformancePeriodStartDate</PropertyPath>
+								<PropertyPath>PerformancePeriodEndDate</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="PlantChange">
+					<Record Type="Common.SideEffectsType">
+						<PropertyValue Property="SourceProperties">
+							<Collection>
+								<PropertyPath>Plant</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="TargetEntities">
+							<Collection>
+								<NavigationPropertyPath>to_AddressTP</NavigationPropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="EffectTypes" EnumMember="ValueChange"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="MM_PUR_RFQ_MAINTAIN_SRV.C_RFQBidderEnhWDType">
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant">
+					<Record>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@UI.LineItem</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="RequestAtLeast">
+							<Collection>
+								<PropertyPath>HasNoSupplierQuotation</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="SortOrder"/>
+						<PropertyValue Property="GroupBy"/>
+						<PropertyValue Property="TotalBy"/>
+						<PropertyValue Property="Total"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Facets">
+					<Collection>
+						<Record Type="UI.CollectionFacet">
+							<Annotation Term="UI.IsSummary" Bool="false"/>
+							<Annotation Term="UI.PartOfPreview" Bool="false"/>
+							<PropertyValue Property="Facets">
+								<Collection>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Target" AnnotationPath="@UI.Identification"/>
+										<PropertyValue Property="ID" String="BasicData">
+											<Annotation Term="UI.MultiLineText" Bool="false"/>
+										</PropertyValue>
+										<PropertyValue Property="Label" String="{@i18n&gt;@BASIC_DATA}">
+											<Annotation Term="UI.MultiLineText" Bool="false"/>
+										</PropertyValue>
+									</Record>
+								</Collection>
+							</PropertyValue>
+							<PropertyValue Property="ID" String="GeneralInformation">
+								<Annotation Term="UI.MultiLineText" Bool="false"/>
+							</PropertyValue>
+							<PropertyValue Property="Label" String="{@i18n&gt;@GeneralInfoFacetLabel}">
+								<Annotation Term="UI.MultiLineText" Bool="false"/>
+							</PropertyValue>
+						</Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="SupplierChange">
+					<Record>
+						<PropertyValue Property="SourceProperties">
+							<Collection>
+								<PropertyPath>Supplier</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="EffectTypes" EnumMember="ValueChange"/>
+						<PropertyValue Property="TargetEntities">
+							<Collection>
+								<NavigationPropertyPath/>
+								<NavigationPropertyPath>to_Bidder</NavigationPropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="MM_PUR_RFQ_MAINTAIN_SRV.MM_PUR_RFQ_MAINTAIN_SRV_Entities/A748DE3ED04E5C4055549Submit_for_approval">
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="PublishPressed">
+					<Record>
+						<PropertyValue Property="EffectTypes" EnumMember="Validation"/>
+						<PropertyValue Property="TargetEntities">
+							<Collection>
+								<NavigationPropertyPath>to_RFQLifecycleStatus</NavigationPropertyPath>
+								<NavigationPropertyPath>to_RFQBidderEnhWD</NavigationPropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="MM_PUR_RFQ_MAINTAIN_SRV.MM_PUR_RFQ_MAINTAIN_SRV_Entities/C_RequestForQuotationEnhWDCancel">
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CancelPressed">
+					<Record>
+						<PropertyValue Property="EffectTypes" EnumMember="Validation"/>
+						<PropertyValue Property="TargetEntities">
+							<Collection>
+								<NavigationPropertyPath>to_RFQLifecycleStatus</NavigationPropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="MM_PUR_RFQ_MAINTAIN_SRV.MM_PUR_RFQ_MAINTAIN_SRV_Entities/C_RequestForQuotationEnhWDComplete">
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CompletePressed">
+					<Record>
+						<PropertyValue Property="EffectTypes" EnumMember="Validation"/>
+						<PropertyValue Property="TargetEntities">
+							<Collection>
+								<NavigationPropertyPath>to_RFQLifecycleStatus</NavigationPropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="MM_PUR_RFQ_MAINTAIN_SRV.MM_PUR_RFQ_MAINTAIN_SRV_Entities/A748DE3ED04E5C4055Withdraw_from_approval">
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="WithdrawPressed">
+					<Record>
+						<PropertyValue Property="EffectTypes" EnumMember="Validation"/>
+						<PropertyValue Property="TargetEntities">
+							<Collection>
+								<NavigationPropertyPath>to_RFQLifecycleStatus</NavigationPropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm"
+				Target="MM_PUR_RFQ_MAINTAIN_SRV.MM_PUR_RFQ_MAINTAIN_SRV_Entities/C_RequestForQuotationEnhWD">
+				<Annotation Term="Common.DraftRoot">
+					<Record>
+						<PropertyValue Property="ActivationAction"
+							String="MM_PUR_RFQ_MAINTAIN_SRV.MM_PUR_RFQ_MAINTAIN_SRV_Entities/C_RequestForQuotationEnhWDActivation"/>
+						<PropertyValue Property="EditAction" String="MM_PUR_RFQ_MAINTAIN_SRV.MM_PUR_RFQ_MAINTAIN_SRV_Entities/C_RequestForQuotationEnhWDEdit"/>
+						<PropertyValue Property="PreparationAction"
+							String="MM_PUR_RFQ_MAINTAIN_SRV.MM_PUR_RFQ_MAINTAIN_SRV_Entities/C_RequestForQuotationEnhWDPreparation"/>
+						<PropertyValue Property="ValidationFunction"
+							String="MM_PUR_RFQ_MAINTAIN_SRV.MM_PUR_RFQ_MAINTAIN_SRV_Entities/C_RequestForQuotationEnhWDValidation"/>
+						<PropertyValue Property="NewAction"
+							String="MM_PUR_RFQ_MAINTAIN_SRV.MM_PUR_RFQ_MAINTAIN_SRV_Entities/A748DE3ED04E5C40555Cwr_rfq_for_materials"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm"
+				Target="MM_PUR_RFQ_MAINTAIN_SRV.C_RequestForQuotationEnhWDType/FollowOnDocumentType">
+				<Annotation Term="Common.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Supplier Quotation Follow On Document"/>
+						<PropertyValue Property="CollectionPath" String="C_QTNFollowOnDocumentVH"/>
+						<PropertyValue Property="SearchSupported" Bool="true"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="PurchasingDocumentType"/>
+									<PropertyValue Property="ValueListProperty" String="SupplierQuotationType"/>
+								</Record>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="FollowOnDocumentType"/>
+									<PropertyValue Property="ValueListProperty" String="FollowOnDocumentType"/>
+								</Record>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="FollowOnDocumentCategory"/>
+									<PropertyValue Property="ValueListProperty" String="FollowOnDocumentCategory"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="FollowOnDocumentType_Text"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm"
+				Target="MM_PUR_RFQ_MAINTAIN_SRV.C_RequestForQuotationEnhWDType/IncotermsVersion_Text">
+				<Annotation Term="UI.HiddenFilter"/>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm"
+				Target="MM_PUR_RFQ_MAINTAIN_SRV.C_RequestForQuotationEnhWDType/IncotermsClassification_Text">
+				<Annotation Term="UI.HiddenFilter"/>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm"
+				Target="MM_PUR_RFQ_MAINTAIN_SRV.C_RequestForQuotationEnhWDType/PaymentTerms_Text">
+				<Annotation Term="UI.HiddenFilter"/>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm"
+				Target="MM_PUR_RFQ_MAINTAIN_SRV.C_RequestForQuotationEnhWDType/RequestForQuotation_Text">
+				<Annotation Term="UI.HiddenFilter"/>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
